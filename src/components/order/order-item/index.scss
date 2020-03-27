@@ -1,0 +1,71 @@
+.order_item {
+  border-radius: 4px;
+  background: #fff;
+
+  @mixin line {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: scaleY(0.5);
+    background: #eee;
+  }
+
+  .o_head {
+    padding: 20px 30px;
+    position: relative;
+
+    .oh_num {
+      color: #999;
+    }
+
+    .oh_status {
+      color: #FF6E3F;
+    }
+
+    &:after {
+      bottom: 0;
+      @include line();
+    }
+  }
+
+  .o_content {
+    padding: 30px;
+
+    .oc_pic {
+      margin-right: 40px;
+      width: 140px;
+      height: 140px;
+      border-radius: 4px;
+    }
+
+    .oc_aside {
+      .oc_name {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .oc_desc {
+        color: #999;
+      }
+    }
+  }
+
+  .o_foot {
+    color: #333;
+    position: relative;
+    padding: 20px 30px;
+    .of_pay {
+      color: #FF6E3F;
+      font-size: 30px;
+      font-weight: 700;
+      margin-left: 10px;
+    }
+
+    &:before {
+      @include line();
+      top: 0;
+    }
+  }
+}

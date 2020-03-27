@@ -1,0 +1,20 @@
+
+.num_handle {
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 6px 0;
+    .num {
+        font-size: $font_medium_s;
+        color: #444;
+        font-weight: 700;
+        width: 60px;
+    }
+    .iconfont {
+        font-size: 40px;
+        width: 60px;
+    }
+    .iconremove, .num {
+        border-right: 2px solid #F1F1F1;
+    }
+}

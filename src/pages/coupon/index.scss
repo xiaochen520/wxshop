@@ -1,0 +1,18 @@
+page {
+  background: $bg_color_gray;
+}
+
+.coupon {
+  padding: 40px;
+  .c_item {
+    background: #fff;
+    margin-bottom: 30px;
+    .c_left {
+      .c_desc {
+        .s {
+          font-size: 36px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+@import './theme.scss';
+
+page {
+    font-size: $font_little;
+}
+
+view, input, button {
+    box-sizing: border-box;
+}
+
+button {
+    padding-left: 0;
+    padding-right: 0;
+    display: inline-block;
+    line-height: normal;
+    &::after {
+        display: none;
+    }
+}
+
+.iconfont {
+    font-size: 30px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex_1 {
+    width: 0;
+    flex: 1;
+}
+
+.flex_v{
+    display: flex;
+    flex-direction: column;
+    .flex_1 {
+        width: 100%;
+    }
+}
+
+.flex_v_c{
+    align-items: center;
+}
+.flex_v_b{
+    align-items: flex-end;
+}
+.flex_h_c{
+    justify-content: center;
+}
+
+.flex_w {
+    flex-wrap: wrap;
+}
+
+.flex_middle {
+    display: flex;
+    align-items: center;
+}
+
+.flex_list {
+    display: flex;
+    flex-wrap: wrap;
+    .flex_item {
+        flex-shrink: 0;
+    }
+}
+
+.tc {
+    text-align: center;
+}
+
+.tr {
+    text-align: right;
+}
+
+.b {
+    font-weight: 700;
+}
+
+// 带线title
+.insert_content {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    transform: translateY(-50%) scaleY(0.5);
+    height: 2px;
+    background: #CCCCCC;
+}
+
+.title_line {
+    position: relative;
+    &::before {
+        left: -60px;
+        @extend .insert_content;
+    }
+    &::after {
+        left: 100%;
+        @extend .insert_content;
+    }
+}
+
+
+.btn.button-hover {
+    background: #627B89;
+}

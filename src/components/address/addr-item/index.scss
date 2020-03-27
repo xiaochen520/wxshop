@@ -1,0 +1,40 @@
+.addr {
+    background: #fff;
+    border-radius: 4px;
+    position: relative;
+    padding: 30px 40px;
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 36px;
+        color: #999;
+    }
+    &_head {
+        font-size: 26px;
+        color: #666;
+        padding: 10px 0;
+        .name {
+            margin-right: 20px;
+        }
+    }
+    &_desc {
+        font-size: 30px;
+        color: #333;
+        padding: 10px 0;
+    }
+    &_foot {
+        padding: 20px 0;
+        .a_f_left {
+           
+        }
+        .a_f_right {
+            &-btn {
+                color: #999;
+                &:first-child {
+                    margin-right: 30px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .3s ease;
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    .modal_box {
+      transform: translateY(0);
+    }
+  }
+  &_box {
+    position: absolute;
+    top: 300px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    padding: 0 30px;
+    transform: translateY(100%);
+    transition: transform .3s ease;
+    .iconfont {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #999;
+    }
+    .modal_head {
+      padding: 20px 0;
+      &_pic {
+        width: 140px;
+        height: 140px;
+        margin-right: 24px;
+      }
+      &_name {
+        line-height: 2;
+        color: #333;
+      }
+      &_price {
+        color: #ed4014;
+        font-size: 32px;
+      }
+      &_type {
+        color: #666;
+      }
+    }
+    .modal_content {
+      .mc_rule {
+        .rule_item {
+          .mc_rule_title {
+            line-height: 2.2;
+            color: #333;
+          }
+          .mc_rule_list {
+            border-bottom: 2px solid #eee;
+            .mc_rule_unit {
+              border: 2px solid #000;
+              margin-right: 20px;
+              margin-bottom: 20px;
+              padding: 2px;
+              .unit {
+                color: #333;
+                font-size: 22px;
+                padding: 4px 18px;
+              }
+              &.active {
+                border-color: $theme_color;
+                .unit {
+                  background: $theme_color;
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+      }
+      .mc_calc {
+        padding: 20px 0;
+        border-bottom: 2px solid #eee;
+      }
+    }
+    .modal_foot {
+      margin-left: -30px;
+      margin-right: -30px;
+      .btn {
+        padding: 20px;
+        display: block;
+        border-radius: 0;
+        width: 100%;
+        background: #ed4014;
+        color: #fff;
+      }
+    }
+  }
+}

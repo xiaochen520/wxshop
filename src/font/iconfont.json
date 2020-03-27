@@ -1,0 +1,93 @@
+{
+  "id": "1600934",
+  "name": "shopapp",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2846535",
+      "name": "check-box",
+      "font_class": "check-box",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "3115892",
+      "name": "empty",
+      "font_class": "empty",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "12550357",
+      "name": "放大+",
+      "font_class": "fangda",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "12550360",
+      "name": "缩小-",
+      "font_class": "suoxiao-",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "12552967",
+      "name": "Icon - Keyboard Arrow - Down - Rounded",
+      "font_class": "arrow-down",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "12572280",
+      "name": "Icon - Keyboard Arrow - Down - Rounded",
+      "font_class": "arrow-left-c",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "12579446",
+      "name": "radio-checked",
+      "font_class": "radio-checked",
+      "unicode": "e763",
+      "unicode_decimal": 59235
+    },
+    {
+      "icon_id": "12579447",
+      "name": "radio-unchecked",
+      "font_class": "radio-unchecked",
+      "unicode": "e764",
+      "unicode_decimal": 59236
+    },
+    {
+      "icon_id": "12650554",
+      "name": "add",
+      "font_class": "add",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
+      "icon_id": "12650755",
+      "name": "remove",
+      "font_class": "remove",
+      "unicode": "e774",
+      "unicode_decimal": 59252
+    },
+    {
+      "icon_id": "12656980",
+      "name": "pass_Line_icons",
+      "font_class": "pass_Line_icons",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "12656991",
+      "name": "pass_Flat_icons",
+      "font_class": "pass_Flat_icons",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    }
+  ]
+}

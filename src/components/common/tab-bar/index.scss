@@ -1,0 +1,22 @@
+.tab_group {
+  padding: 0 30px;
+  .tab_item {
+    padding: 20px 0;
+    line-height: normal;
+    position: relative;
+    &.active {
+      color: #F2A281;
+    }
+    &.active:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background: #F2A281;
+      transform: translateX(-50%);
+    }
+  }
+  
+}

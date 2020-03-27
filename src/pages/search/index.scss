@@ -1,0 +1,50 @@
+.search {
+    .nav {
+      padding-left: 30px;
+      position: relative;
+      padding-bottom: 20px;
+      .input_box {
+        background: #eee;
+        padding: 0 30px;
+        border-radius: 4px;
+        height: 64px;
+        .iconfont {
+          margin-right: 12px;
+          color: #999;
+        }
+      }
+      .cancel_btn {
+        padding: 0 20px;
+        color: #666;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: #eee;
+        transform: scaleY(0.5);
+      }
+    }
+    .topic {
+      margin-top: 20px;
+      padding: 0 30px;
+      .t_head {
+        padding: 20px 0;
+        .title {
+          font-size: 28px;
+        }
+      }
+      .t_c_list {
+        .t_c_item {
+          background: #eee;
+          color: #666;
+          border-radius: 4px;
+          padding: 8px 16px;
+          margin-right: 20px;
+        }
+      }
+    }
+}

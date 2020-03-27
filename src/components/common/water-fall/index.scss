@@ -1,0 +1,13 @@
+
+.container {
+    width: 100%;
+    .left {
+        flex: 1;
+        .left_list {
+            width: 100%;
+        }
+    }
+    .right {
+        flex: 1;
+    }
+}
