@@ -5,7 +5,9 @@ page {
 .coupon {
   padding: 40px;
   .c_item {
-    background: #fff;
+    height: 230px;
+    background: url("../../imgs/coupon/coupon-bg.png") no-repeat;
+    background-size: cover;
     margin-bottom: 30px;
     .c_left {
       .c_desc {
@@ -13,6 +15,9 @@ page {
           font-size: 36px;
         }
       }
+    }
+    .c_right {
+      width: 220px;
     }
   }
 }
