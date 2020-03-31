@@ -28,7 +28,26 @@ export default class Index extends Component {
     
     return (
       <View className='addr'>
-        <AddrItem></AddrItem>
+          <View className="addr_inner">
+            <AddrItem></AddrItem>
+          </View>
+          <View className="addr_inner">
+            <AddrItem></AddrItem>
+          </View>
+          <View className="addr_inner">
+            <AddrItem></AddrItem>
+          </View>
+          <View className="addr_inner">
+            <AddrItem></AddrItem>
+          </View>
+          <View className="addr_inner">
+            <AddrItem></AddrItem>
+          </View>
+          <View className="addr_inner">
+            <AddrItem></AddrItem>
+          </View>
+
+          <View className="foot_btn" onClick={Taro.$util.gotoPage("/pages/add-address/index")}>添加地址</View>
       </View>
     )
   }

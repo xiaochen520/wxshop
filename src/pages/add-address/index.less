@@ -1,0 +1,62 @@
+@import '../../app.less';
+
+page {
+  background-color: #fff !important;
+}
+
+.index {
+  overflow: hidden;
+  padding: 0 40px;
+}
+
+.address_info {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 10px;
+
+  &_options {
+    .flex_start;
+    height: 110px;
+
+    image {
+      width: 36px;
+      height: 36px;
+      margin-right: 20px;
+    }
+
+    .options_input,.options_picker {
+      font-size: 28px;
+      color: #222;
+      flex: 1;
+      height: 90px;
+    }
+
+    .picker_text {
+      font-size: 30px;
+      color: #999;
+      height: 90px;
+      line-height: 90px;
+      .line_hidden();
+      &__active {
+        color: #222;
+      }  
+    }
+    .address_info_arrow {
+      width: 14px;
+      height: 44px;
+      margin: 0;
+      margin-left: 18px;
+    }
+  }
+}
+
+.default_address {
+  margin-top: 20px;
+  .space_between;
+  height: 110px;
+
+  &__text {
+    font-size: 28px;
+    color: #333;
+  }
+}

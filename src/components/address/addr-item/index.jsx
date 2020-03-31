@@ -25,7 +25,7 @@ export default class Index extends Component {
   render() {
     return (
       <View className='addr'>
-        <Text className="close iconfont iconadd"></Text>
+        <Text className="close iconfont iconsearchclose-"></Text>
         <View className="addr_head">
           <Text className="name">陈佳迪</Text>
           <Text>15226085502</Text>
@@ -33,7 +33,7 @@ export default class Index extends Component {
         <View className="addr_desc b">河南省郑州市金水区金城时代广场7好扣</View>
         <View className="addr_foot flex_middle">
           <View className="flex_1 a_f_left">
-            <Text className="iconfont iconadd"></Text>
+            <Text className="iconfont iconpass_Line_icons"></Text>
             <Text>设为默认</Text>
           </View>
           <View className="a_f_right">

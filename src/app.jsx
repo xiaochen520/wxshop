@@ -43,6 +43,7 @@ class App extends Component {
       "pages/shop-list/index", //商品列表
       "pages/coupon/index", //优惠券
       "pages/address/index", //地址管理
+      "pages/add-address/index", //新增地址
     ],
     "window": {
       "navigationBarBackgroundColor": "#fff",
