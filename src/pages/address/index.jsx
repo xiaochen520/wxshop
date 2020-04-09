@@ -24,6 +24,10 @@ export default class Index extends Component {
 
   componentDidHide() { }
 
+  goAddressAdd = () => {
+    Taro.$util.gotoPage("/pages/add-address/index");
+  }
+
   render() {
     
     return (
@@ -47,7 +51,7 @@ export default class Index extends Component {
             <AddrItem></AddrItem>
           </View>
 
-          <View className="foot_btn" onClick={Taro.$util.gotoPage("/pages/add-address/index")}>添加地址</View>
+          <View className="foot_btn" onClick={this.goAddressAdd}>添加地址</View>
       </View>
     )
   }

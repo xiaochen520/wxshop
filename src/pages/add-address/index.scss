@@ -1,4 +1,3 @@
-@import '../../app.less';
 
 page {
   background-color: #fff !important;
@@ -15,7 +14,6 @@ page {
   padding-bottom: 10px;
 
   &_options {
-    .flex_start;
     height: 110px;
 
     image {
@@ -36,7 +34,6 @@ page {
       color: #999;
       height: 90px;
       line-height: 90px;
-      .line_hidden();
       &__active {
         color: #222;
       }  
@@ -52,7 +49,6 @@ page {
 
 .default_address {
   margin-top: 20px;
-  .space_between;
   height: 110px;
 
   &__text {
