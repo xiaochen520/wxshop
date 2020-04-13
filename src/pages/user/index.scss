@@ -1,93 +1,88 @@
+page {
+  background: $bg_color_gray;
+}
+
 .my {
-  .order {
-    .o_head {
-      color: #333;
-      padding: 20px 40px;
-    }
+  padding: 0 $padding_theme;
+
+  .user {
+    padding: $padding_theme 0;
+      &_head {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        margin-right: $gap30;
+      }
+      &_name {
+        color: $c3;
+        font-size: 36px;
+      }
+  }
+
+  .other_list {
+    padding: $gap30 0;
     .o_item {
-      width: 20%;
       text-align: center;
+      .oi_num {
+        font-size: 48px;
+        font-weight: 700;
+      }
+      .oi_label {
+        color: $c6;
+      }
     }
   }
 
-  .user {
-    padding: $padding_theme;
-    background: linear-gradient(135deg, rgba(254, 182, 146, 1) 0%, rgba(234, 84, 85, 1) 100%);
-
-    .user_outer {
-      background: #fff;
-      padding: 30px 40px;
-      border-radius: 8px;
-
-      .u_photo {
-        width: 140px;
-        height: 140px;
-        margin-right: 20px;
-        border-radius: 4px;
-      }
-
-      .u_r_content {
-        .name {
-          font-size: 36px;
-          font-weight: 700;
-          color: #333;
-        }
-        .type {
-          background: #FF8F2E;
-          color: #fff;
-          font-size: 18px;
-          border-radius: 4px;
-          padding: 4px 8px;
-          margin-left: 10px;
-        }
-        .btn_account {
-          background:#E6E6E6;
-          border-radius:20px;
-          font-size: 20px;
-          color: #fff;
-          padding: 8px 10px;
-          margin-top: 20px;
-        }
-      }
-
-      .other_list {
-        .o_item {
-          text-align: center;
-          font-size: 24px;
-          color: #666;
-          position: relative;
-          &:first-child {
-            @include border-right(2px, #CCCCCC);
-          }
-          .num {
-            font-size: 32px;
-            color: #FF4400;
-            font-weight: 700;
-          }
-        }
+  .order {
+    background: #fff;
+    border-radius: 10px;
+    padding: 0 $padding_theme;
+    .o_head {
+      color: $c3;
+      font-size: $f26;
+      height: 90px;
+      @include line-row(1px, #eee, 0, bottom);
+      .iconfont {
+        font-size: 36px;
       }
     }
 
+    .o_item {
+      width: 25%;
+      text-align: center;
+      padding: 30px 0;
+      .o_icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 10px;
+      }
+    }
   }
 
   .menu {
-    padding: 0 30px;
+    margin-top: $gap20;
+    font-size: $f26;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0 $padding_theme;
+
     .m_item {
       padding: $padding_theme 0;
-
+      &:first-child {
+        @include line-row(1px, #ddd, 0, bottom);
+      }
       .m_icon {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
+        width: 40px;
+        height: 40px;
+        margin-right: 20px;
       }
 
       .m_text {
-        font-size: $font_medium;
+        color: $c3;
       }
 
-      .m_arrow_icon {
-        width: 30px;
-        height: 40px;
+      .iconfont {
+        font-size: 36px;
       }
     }
   }

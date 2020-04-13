@@ -45,6 +45,17 @@ page {
       margin-left: 18px;
     }
   }
+  .hairline-bottom {
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      height: 2px;
+      transform: scaleY(0.5);
+      background: #eee;
+    }
+  }
 }
 
 .default_address {

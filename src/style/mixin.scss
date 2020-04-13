@@ -1,35 +1,54 @@
-
 // 边框
-@mixin border-left($width, $color, $radius: 0px) {
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: $width;
-        height: 100%;
-        background: $color;
-        border-radius: $radius;
-        @if $width == 1px {
-            width: 2px;
-            transform: scaleX(0.5);
-        }
+@mixin line-col($width, $color, $radius: 0px, $dir: left) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+
+    @if $dir==left {
+      left: 0;
     }
+
+    @else {
+      right: 0;
+    }
+
+    width: $width;
+    height: 100%;
+    background: $color;
+    border-radius: $radius;
+
+    @if $width==1px {
+      width: 2px;
+      transform: scaleX(0.5);
+    }
+  }
 }
 
-@mixin border-right($width, $color, $radius: 0px) {
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: $width;
-        height: 100%;
-        background: $color;
-        border-radius: $radius;
-        @if $width == 1px {
-            width: 2px;
-            transform: scaleX(0.5);
-        }
+@mixin line-row($width, $color, $radius: 0px, $dir: top) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+
+    @if $dir==top {
+      top: 0;
     }
+
+    @else {
+      bottom: 0;
+    }
+
+    width: 100%;
+    height: $width;
+    background: $color;
+    border-radius: $radius;
+
+    @if $width==1px {
+      height: 2px;
+      transform: scaleY(0.5);
+    }
+  }
 }

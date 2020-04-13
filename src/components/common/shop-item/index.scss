@@ -9,18 +9,18 @@
   }
 
   .t2_item_box {
-    padding: $padding_small;
+    padding: $gap20;
     padding-bottom: $padding_theme;
   }
 
   .t2_name {
     font-size: $font_medium_s;
-    color: $font_color_black;
+    color: $c3;
   }
 
   .t2_label {
     margin-top: 10px;
-    font-size: $font_little_s;
+    font-size: $f20;
     color: #ED5252;
     background: #FFE9E9;
     border-radius: 6px;
@@ -29,7 +29,7 @@
   }
 
   .t2_price {
-    font-size: $font_little_s;
+    font-size: $f20;
     color: #ED5252;
     margin: 10px 0;
 

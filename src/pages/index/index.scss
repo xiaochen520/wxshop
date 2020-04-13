@@ -26,7 +26,7 @@ page {
           margin-bottom: 10px;
         }
         .nav_name {
-          color: $font_color_black;
+          color: $c3;
         }
       }
     }
@@ -49,8 +49,8 @@ page {
       line-height: 1;
       font-weight: bold;
       font-size: $font_large_s;
-      color: $font_color_black;
-      @include border-left(6px, #333, 4px);
+      color: $c3;
+      @include line-col(6px, #333, 4px);
     }
   }
 
@@ -73,7 +73,7 @@ page {
 
         .t_s_item_name {
           font-size: $font_little_m;
-          color: $font_color_black;
+          color: $c3;
           margin-top: 20px;
         }
       }
@@ -94,16 +94,16 @@ page {
           height: 330px;
         }
         .t2_item_box {
-          padding: $padding_small;
+          padding: $gap20;
           padding-bottom: $padding_theme;
         }
         .t2_name {
           font-size: $font_medium_s;
-          color: $font_color_black;
+          color: $c3;
         }
         .t2_label {
           margin-top: 10px;
-          font-size: $font_little_s;
+          font-size: $f20;
           color: #ED5252;
           background: #FFE9E9;
           border-radius: 6px;
@@ -111,7 +111,7 @@ page {
           padding: 0 8px;
         }
         .t2_price {
-          font-size: $font_little_s;
+          font-size: $f20;
           color: #ED5252;
           margin: 10px 0;
           .price_num {

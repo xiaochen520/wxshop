@@ -20,7 +20,7 @@
         padding: 30px;
         .gd_left {
             position: relative;
-            @include border-right(1px, #F1F1F1);
+            @include line-col(1px, #F1F1F1, 0, right);
         }
         .g_name {
             font-size: 32px;

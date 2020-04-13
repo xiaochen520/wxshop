@@ -44,6 +44,8 @@ class App extends Component {
       "pages/coupon/index", //优惠券
       "pages/address/index", //地址管理
       "pages/add-address/index", //新增地址
+      "pages/wx-author/index", //授权页面
+      "pages/author-login/index", //登录页面
     ],
     "window": {
       "navigationBarBackgroundColor": "#fff",

@@ -223,7 +223,7 @@ class Index extends Component {
             <View className='index'>
 
                 <View className="address_info">
-                    <View className="address_info_options hairline-bottom">
+                    <View className="address_info_options flex_middle hairline-bottom">
                         <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
                         <Input className="options_input"
                             type='text'
@@ -234,40 +234,27 @@ class Index extends Component {
                         // onInput={this.handleInfo.bind(this, 1)}
                         />
                     </View>
-                    <View className="address_info_options hairline-bottom">
-                        {/* <Image src={telIcon} /> */}
+                    <View className="address_info_options flex_middle hairline-bottom">
+                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
                         <Input className="options_input"
                             type='number'
-                            // placeholder={`请填写${fromType == 0 ? '收货人' : ''}手机号`}
+                            placeholder={`请填写手机号`}
                             placeholderClass="placeholderColor_big"
                             maxLength="11"
                         // value={addressInfo.LinkPhone}
                         // onInput={this.handleInfo.bind(this, 2)}
                         />
                     </View>
-                    <View className="address_info_options hairline-bottom">
+                    <View className="address_info_options flex_middle hairline-bottom">
                         <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
-                        {/* <Picker className="options_picker"
-                            mode="selector"
-                            value={pickerIndex}
-                            range={pickerList}
-                            onChange={this.handleShop.bind(this)}>
-                            <View className={classNames('picker_text',
-                                { 'picker_text__active': selectShop })}
-                            >{selectShop ? selectShop : '请选择店铺所在商场'}</View>
-                        </Picker> */}
-                        <Image className="address_info_arrow" src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
-                    </View>
-                    <View className="address_info_options hairline-bottom">
-                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
-                        <View className="options_picker">
+                        <View className="options_picker flex_1">
                             <View className={classNames('picker_text',
                                 { 'picker_text__active': selectText })}
-                            >{selectText ? selectText : fromType == 0 ? '请选择收货地址' : '请选择店铺地址'}</View>
+                            >请选择收货地址</View>
                         </View>
                         <Image className="address_info_arrow" src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
                     </View>
-                    <View className="address_info_options hairline-bottom">
+                    <View className="address_info_options flex_middle hairline-bottom">
                         <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
                         <Input className="options_input"
                             type='text'
@@ -278,29 +265,6 @@ class Index extends Component {
                         // onInput={this.handleInfo.bind(this, 3)}
                         />
                     </View>
-
-                    <View className="address_info_options hairline-bottom">
-                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
-                        <Input className="options_input"
-                            type='text'
-                            placeholder='请填写店铺门牌号'
-                            placeholderClass="placeholderColor_big"
-                            maxLength="20"
-                        // value={addressInfo.HouseNum}
-                        // onInput={this.handleInfo.bind(this, 4)}
-                        />
-                    </View>
-                    <View className="address_info_options hairline-bottom">
-                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
-                        <Input className="options_input"
-                            type='text'
-                            placeholder='请填写店铺名称'
-                            placeholderClass="placeholderColor_big"
-                            maxLength="20"
-                        // value={addressInfo.ShopName}
-                        // onInput={this.handleInfo.bind(this, 5)}
-                        />
-                    </View>
                 </View>
                 <View className="default_address" onClick={this.handleAddress.bind(this)}>
                     <Text className="default_address__text">设为默认地址</Text>
@@ -309,7 +273,6 @@ class Index extends Component {
                 <View className="bottom_btn">
                     <Button className="button_ele" hoverClass="none" onClick={this.handleSave.bind(this)}>保存</Button>
                 </View>
-                {/* <RegionList isBlock={isBlock} fromType={fromType} shopId={pickerIdList[pickerId]} onHandleCancel={this.handleSelect}></RegionList> */}
             </View>
         )
     }
