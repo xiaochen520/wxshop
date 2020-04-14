@@ -5,12 +5,28 @@ import OrderItem from "@/components/order/order-item"
 import './index.scss'
 
 export default class Index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
 
-    };
+  state = {
+
   }
+
+  tabList = [
+    {
+      label: "全部"
+    },
+    {
+      label: "待支付"
+    },
+    {
+      label: "待发货"
+    },
+    {
+      label: "待收货"
+    },
+    {
+      label: "已完成"
+    }
+  ]
 
   componentDidMount() {
 
@@ -27,24 +43,11 @@ export default class Index extends Component {
   }
 
   render() {
-    // let { topicArr } = this.state;
-    let list = [
-      {
-        label: "待支付"
-      },
 
-      {
-        label: "待发货"
-      },
-
-      {
-        label: "待收货"
-      }
-    ]
     return (
       <View className='order flex flex_v'>
         <View>
-          <TabBar onChange={this.tabBarClick.bind(this)} current={1} list={list}></TabBar>
+          <TabBar onChange={this.tabBarClick.bind(this)} current={this.$router.params.type} list={this.tabList}></TabBar>
         </View>
 
         <View className="flex_1 order_outer">
@@ -52,7 +55,7 @@ export default class Index extends Component {
             <View className="oi_outer">
               <OrderItem></OrderItem>
             </View>
-            
+
             <View className="oi_outer">
               <OrderItem></OrderItem>
             </View>

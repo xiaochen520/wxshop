@@ -21,7 +21,7 @@
     }
 
     .oh_status {
-      color: #FF6E3F;
+      color: $theme_color;
     }
 
     &:after {
@@ -57,7 +57,7 @@
     position: relative;
     padding: 20px 30px;
     .of_pay {
-      color: #FF6E3F;
+      color: $theme_color;
       font-size: 30px;
       font-weight: 700;
       margin-left: 10px;

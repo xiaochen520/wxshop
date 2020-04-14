@@ -46,18 +46,17 @@ export default class Index extends Component {
           couponList.map(e => (
             <View className="c_item flex_middle">
               <View className="flex_1 c_left tc">
-                <View className='c_desc'>
-                  <Text className="s b">￥{e.price}</Text>
-                  <Text>{e.name}</Text>
-                </View>
-                <View className="c_type">{e.type}</View>
+                <View className='cl_name'>特定商品优惠券</View>
+                <View className="cl_time">有效期截止2020.06.20</View>
               </View>
               <View className="c_right tc">
-                <View className="c_get_btn">
-                  立即领劵
+                <View className="cr_amount">
+                  <Text className="s b">85</Text>
+                  <Text>元</Text>
                 </View>
-                <View className="c_time">
-                  2020-01-05-2020-01-05
+                <View className="cr_get">
+                  <Text>立即领取</Text>
+                  <Text className="iconfont iconarrow-down"></Text>
                 </View>
               </View>
             </View>

@@ -20,10 +20,6 @@ export default class Index extends Component {
 
   componentDidHide() { }
 
-  goOrderList() {
-    Taro.$util.gotoPage("/pages/order/index");
-  }
-
   goPage(page) {
     Taro.$util.gotoPage(page);
   }
@@ -52,27 +48,26 @@ export default class Index extends Component {
           </View>
         </View>
 
-
         <View className='order'>
           <View className="o_head flex_middle">
             <View className="flex_1 b">我的订单</View>
-            <View onClick={this.goOrderList.bind(this)}>查看更多订单</View>
+            <View onClick={this.goPage.bind(this, "/pages/order/index")}>查看更多订单</View>
             <View className="iconfont iconarrow-down"></View>
           </View>
           <View className="o_list flex_middle">
-            <View className='o_item'>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=1")}>
               <Image className='o_icon' src={icon.unpay} />
               <View className='o_text'>待支付</View>
             </View>
-            <View className='o_item'>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=2")}>
               <Image className='o_icon' src={icon.undelivery} />
-              <View className='o_text'>代发货</View>
+              <View className='o_text'>待发货</View>
             </View>
-            <View className='o_item'>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=3")}>
               <Image className='o_icon' src={icon.unreceive} />
               <View className='o_text'>待收货</View>
             </View>
-            <View className='o_item'>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=4")}>
               <Image className='o_icon' src={icon.receive} />
               <View className='o_text'>已完成</View>
             </View>

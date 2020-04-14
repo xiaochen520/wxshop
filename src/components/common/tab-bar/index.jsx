@@ -12,7 +12,7 @@ export default class Index extends Component {
   componentDidMount() {
     let { list, current } = this.props
     this.setState({
-      curItem: list[current] || null
+      curItem: list[current || 0] || null
     })
   }
 

@@ -8,16 +8,32 @@ page {
     height: 230px;
     background: url("../../imgs/coupon/coupon-bg.png") no-repeat;
     background-size: cover;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     .c_left {
-      .c_desc {
-        .s {
-          font-size: 36px;
-        }
+      .cl_name {
+        font-size: 38px;
+        color: #B78C4B;
+      }
+      .cl_time {
+        color: $c9;
+        margin-top: $gap20;
       }
     }
     .c_right {
-      width: 220px;
+      text-align: center;
+      width: 230px;
+      color: #fff;
+      .cr_amount {
+        line-height: 1;
+        font-size: 38px;
+        .s {
+          font-size: 88px;
+        }
+      }
+      .cr_get {
+        font-size: $f28;
+        margin-top: 10px;
+      }
     }
   }
 }

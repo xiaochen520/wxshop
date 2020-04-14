@@ -15,11 +15,13 @@ export default class Index extends Component {
   componentDidHide() { }
 
   render() {
-    
+    let { title, children } = this.props;
 
     return (
       <View className='shop_item'>
-        
+        <Image></Image>
+        <View>{title}</View>
+        <View>{children}</View>
       </View>
     )
   }
