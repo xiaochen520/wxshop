@@ -1,18 +1,26 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Button, Text } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 import './index.scss'
 
 import icon from "@/imgs/user"
 
-export default class Index extends Component {
+@connect(({ login }) => ({
+  login
+}))
 
+class Index extends Component {
   config = {
     navigationBarTitleText: ''
   }
 
-  componentWillMount() { }
+  componentWillMount() {
+    
+  }
 
-  componentDidMount() { }
+  componentDidMount() {
+    console.log(this.props)
+  }
 
   componentWillUnmount() { }
 
@@ -21,16 +29,22 @@ export default class Index extends Component {
   componentDidHide() { }
 
   goPage(page) {
+    if(!this.props.login.token) {
+      Taro.$util.gotoPage("/pages/wx-author/index");
+    }
     Taro.$util.gotoPage(page);
   }
 
   render() {
+    let { login } = this.props;
     return (
       <View className='my'>
 
         <View className='user flex_middle'>
-          <Image className='user_head' scaleToFill src='http://img2.imgtn.bdimg.com/it/u=3074623371,2087844897&fm=26&gp=0.jpg' />
-          <View className="user_name b">陈佳迪</View>
+          <Image className='user_head' scaleToFill src={login.token ? "" : icon.head} />
+          <View className="user_name b" onClick={this.goPage.bind(this, "/pages/wx-author/index")}>
+            {login.token ? "陈佳迪" : "登录"}
+          </View>
         </View>
 
         <View className="flex_middle other_list">
@@ -90,3 +104,5 @@ export default class Index extends Component {
     )
   }
 }
+
+export default Index

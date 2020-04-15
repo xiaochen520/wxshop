@@ -16,6 +16,7 @@ page {
     padding: $padding_big;
 
     &_list {
+      align-content: space-between;
       .nav_item {
         width: 25%;
         text-align: center;

@@ -3,6 +3,7 @@ export default {
     //首页
     carousel: "/index/carousel", //轮播图
     recommends: "/index/recommends", //每日推荐
+    hotCategory: "/index/hot-catgorys", //热门分类
 
     //分类
     catgorys: "/index/catgorys", //一级分类

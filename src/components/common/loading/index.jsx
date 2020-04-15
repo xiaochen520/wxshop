@@ -25,16 +25,10 @@ export default class Index extends Component {
     return show ?
       (
         <View className='loading'>
-          <View className="spin">
-							<View className="s_item"></View>
-							<View className="s_item"></View>
-							<View className="s_item"></View>
-							<View className="s_item"></View>
-							<View className="s_item"></View>
-							<View className="s_item"></View>
-							<View className="s_item"></View>
-							<View className="s_item"></View>
-						</View>
+          <View class="spin">
+            <View class="bounce bounce1"></View>
+            <View class="bounce bounce2"></View>
+          </View>
         </View>
       )
       :

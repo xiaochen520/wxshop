@@ -1,5 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
+import { Provider } from '@tarojs/redux'
+import configStore from './store'
 import Index from './pages/index'
+
+const store = configStore()
 
 import "./font/iconfont.css"
 import './app.scss'
@@ -100,7 +104,9 @@ class App extends Component {
   // 请勿修改此函数
   render () {
     return (
-      <Index />
+      <Provider store={store}>
+        <Index />
+      </Provider>
     )
   }
 }

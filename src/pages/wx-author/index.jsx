@@ -42,7 +42,7 @@ export default class Index extends Component {
         <View>
           <Image className="greet" mode="widthFix" src={greet}></Image>
         </View>
-        <Button className="author_btn" openType="getUserInfo" onGetUserInfo={this.getUserInfo}>微信授权</Button>
+        <Button className="author_btn" openType="getUserInfo" onGetUserInfo={this.getUserInfo}>微信登录</Button>
       </View>
     )
   }
