@@ -5,8 +5,8 @@ import './index.scss'
 
 import icon from "@/imgs/user"
 
-@connect(({ login }) => ({
-  login
+@connect(({ user }) => ({
+  user
 }))
 
 class Index extends Component {
@@ -29,21 +29,30 @@ class Index extends Component {
   componentDidHide() { }
 
   goPage(page) {
-    if(!this.props.login.token) {
+    if(!this.props.user.token) {
       Taro.$util.gotoPage("/pages/wx-author/index");
     }
     Taro.$util.gotoPage(page);
   }
 
+  verify = () => {
+    let { user } = this.props;
+  
+    if(!user.token) {
+      this.goPage("/pages/wx-author/index");
+    }
+  }
+
   render() {
-    let { login } = this.props;
+    let { user } = this.props;
+    console.log(user)
     return (
       <View className='my'>
 
         <View className='user flex_middle'>
-          <Image className='user_head' scaleToFill src={login.token ? "" : icon.head} />
-          <View className="user_name b" onClick={this.goPage.bind(this, "/pages/wx-author/index")}>
-            {login.token ? "陈佳迪" : "登录"}
+          <Image className='user_head' onClick={this.verify} scaleToFill src={user.userInfo ? user.userInfo.avatarUrl : icon.head} />
+          <View className="user_name b" onClick={this.verify}>
+            {user.userInfo ? user.userInfo.nickName : "登录"}
           </View>
         </View>
 

@@ -1,10 +1,23 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Swiper, SwiperItem, Button, Text } from '@tarojs/components'
 import './index.scss'
+import { connect } from '@tarojs/redux'
+import { setToken, setUser } from "@/store/actions"
+
 import logo from "@/imgs/common/logo.png"
 import greet from "@/imgs/author/author.png"
 
 import api from "@/api";
+@connect(({ user }) => ({
+  user
+}), (dispatch) => ({
+  setToken(data) {
+    dispatch(setToken(data))
+  },
+  setUser(data) {
+    dispatch(setUser(data))
+  }
+}))
 
 export default class Index extends Component {
 
@@ -27,7 +40,8 @@ export default class Index extends Component {
   componentDidHide() { }
 
   getUserInfo = res => {
-    console.log(res)
+    let { setToken, setUser } = this.props;
+
     let data = res.detail;
     if (data.errMsg === "getUserInfo:ok") {
 
@@ -42,12 +56,19 @@ export default class Index extends Component {
             const parms = {
               code: res.code,
               encryptedData: data.encryptedData,
-              iv: data.iv,
-              rawData: data.rawData
+              iv: data.iv
             }
 
             Taro.$http.post(api.login, parms).then(res => {
-              console.log(res);
+              if (res.code === 200) {
+                setToken(res.data.token);
+                setUser(data.userInfo);
+                Taro.setStorageSync("token", res.data.token);
+                Taro.setStorageSync("userInfo", data.userInfo);
+                Taro.navigateBack({
+                  delta: 1
+                });
+              }
               Taro.hideLoading();
             });
           } else {

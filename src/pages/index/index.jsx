@@ -99,7 +99,7 @@ export default class Index extends Component {
             <View className='flex_list nav_list'>
               {
                 hotCateArr.map(e => (
-                  <View key={e.id} className='nav_item flex_item' onClick={this.goPage.bind(this, "/pages/shop-list/index")}>
+                  <View key={e.id} className='nav_item flex_item' onClick={this.goPage.bind(this, "/pages/shop-list/index?cateName=" + e.name + "&cateId=" + e.id)}>
                     <Image className='nav_icon' mode='aspectFill' src={e.catImage} />
                     <View className='nav_name'>{e.name}</View>
                   </View>

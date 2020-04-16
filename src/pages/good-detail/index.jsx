@@ -42,6 +42,10 @@ export default class Index extends Component {
         bannerArr = res.data.itemImgs;
         shopInfo = res.data.item;
         shopSpecArr = res.data.itemSpecs;
+
+        shopSpecArr.sort((a, b) => (a.priceNormal - b.priceNormal));
+
+        console.log(shopSpecArr)
       }
 
       this.setState({

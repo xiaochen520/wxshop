@@ -92,13 +92,23 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    let userStore = store.getState().user;
+    let token = Taro.getStorageSync("token");
+    let userInfo = Taro.getStorageSync("userInfo");
+  
+    if(!userStore.token && token) {
+      store.dispatch({
+        type: 'SET_TOKEN',
+        data: token
+      });
 
-  componentDidShow () {}
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
+      store.dispatch({
+        type: 'SET_USER',
+        data: userInfo
+      });
+    }
+  }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

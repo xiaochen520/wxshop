@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Input, Switch, Picker, Textarea } from '@tarojs/components'
 import classNames from 'classnames'
 import './index.scss'
+import api from "@/api";
 // import {
 //     rightArrow,
 // } from '@/static/address';
@@ -96,9 +97,7 @@ class Index extends Component {
     }
     // onShow
     componentDidShow() {
-        // if (this.state.fromType == 1) {
-        //     this.getMarkets()
-        // }
+        
     }
     // onUnload
     componentWillUnmount() {
@@ -217,6 +216,9 @@ class Index extends Component {
         //     })
         // }, 20)
     }
+
+    
+
     render() {
         let { addressInfo, title, fromType, isBlock, selectText, selectShop, pickerIndex, pickerList, pickerIdList, pickerId } = this.state;
         return (

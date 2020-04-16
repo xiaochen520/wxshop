@@ -10,6 +10,9 @@ export default {
     catgorys: "/index/catgorys", //一级分类
     subCategory: "/category/subCat/", //二级分类
 
+    //地址
+    addrList: "/address/list", //地址列表
+
     //商品
     goodInfo: "/items/info/"
 }

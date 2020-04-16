@@ -2,29 +2,35 @@ import {
   combineReducers
 } from 'redux'
 import {
-    SET_TOKEN
+    SET_TOKEN,
+    SET_USER
 } from '../actionTypes'
 
 const INITIAL_STATE = {
-  token: ""
+  token: "",
+  userInfo: null
 }
 
 
-function login (state=INITIAL_STATE, action) {
-    // 获取当前todos条数，用以id自增
+function user (state=INITIAL_STATE, action) {
     
     switch (action.type) {  
-      // 根据指令处理todos
       case SET_TOKEN:      
         return {
           ...state,
           token: action.data
         }
+      case SET_USER:      
+        return {
+          ...state,
+          userInfo: action.data
+        }
+        
       default:
         return state
     }
   }
 
   export default combineReducers({
-    login
+    user
   })
