@@ -17,7 +17,7 @@ export default class Index extends Component {
     topicArr: [],
     bannerArr: [],
     hotCateArr: [],
-    showLoad: true
+    showLoading: true
   }
 
   topicPage = 1
@@ -37,7 +37,7 @@ export default class Index extends Component {
 
   //获取所有数据
   getData() {
-    let { showLoad, bannerArr, topicArr, hotCateArr } = this.state;
+    let { bannerArr, topicArr, hotCateArr } = this.state;
     let reqArr = [
       Taro.$http.get(api.carousel),
       Taro.$http.get(api.hotCategory),
@@ -48,7 +48,7 @@ export default class Index extends Component {
       hotCateArr = cate.data;
       topicArr = recommends.data.rows;
       this.topicPage++;
-      this.setState({ bannerArr, topicArr, hotCateArr, showLoad: false });
+      this.setState({ bannerArr, topicArr, hotCateArr, showLoading: false });
     }).catch(err => {
       console.log(err);
     });
@@ -71,10 +71,10 @@ export default class Index extends Component {
   }
 
   render() {
-    let { topicArr, showLoad, hotCateArr } = this.state;
+    let { topicArr, showLoading, hotCateArr } = this.state;
 
-    let content = showLoad ? (
-      < Loading show={showLoad} ></Loading >
+    let content = showLoading ? (
+      < Loading />
     ) : (
         <ScrollView scrollY className='index'>
           <Swiper
@@ -87,7 +87,7 @@ export default class Index extends Component {
               bannerArr.map(e => {
                 return (
                   <SwiperItem>
-                    <Image onClick={this.goPage.bind(this, "/pages/good-detail/index")} className='s_img' mode='widthFix' src={e.imageUrl} />
+                    <Image onClick={this.goPage.bind(this, "/pages/good-detail/index?id=" + e.targetId)} className='s_img' mode='widthFix' src={e.imageUrl} />
                   </SwiperItem>
                 )
               })

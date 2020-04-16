@@ -1,5 +1,6 @@
 
 export default {
+    login: "/passport/miniProgramLogin", //登录
     //首页
     carousel: "/index/carousel", //轮播图
     recommends: "/index/recommends", //每日推荐
