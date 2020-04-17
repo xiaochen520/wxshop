@@ -18,12 +18,23 @@ http.defaults.baseURL = "https://api.langyiquan.com";
 
 http.interceptors.request(config => {
 //请求拦截器
+let token = store.getState().user.token;
+if(token) {
+  config.header = {
+    Authorization: token
+  };
+}
+
 return config;
 });
 
 http.interceptors.response(config => {
   //响应拦截器
-  // console.log(config);
+  // console.log("config", config);
+  
+  if(config.code === 1004) {
+    util.gotoPage("pages/wx-author/index");
+  }
   return config;
 });
 
@@ -50,6 +61,7 @@ class App extends Component {
       "pages/add-address/index", //新增地址
       "pages/wx-author/index", //授权页面
       "pages/author-login/index", //登录页面
+      "pages/about-us/index", //关于我们
     ],
     "window": {
       "navigationBarBackgroundColor": "#fff",

@@ -9,10 +9,10 @@
         font-size: 46px;
     }
     .swipper {
-        height: 700px;
+        height: 680px;
         .s_img {
             width: 100%;
-            height: 700px;
+            height: 680px;
         }
     }
     .good_desc {
@@ -27,10 +27,10 @@
             color: #333333;
             font-weight: 700;
         }
-        .g_desc {
-            color: #666666;
-            line-height: 2;
-        }
+        // .g_desc {
+        //     color: #666666;
+        //     line-height: 2;
+        // }
         .g_price {
             color: #ED5252;
             line-height: 1;
@@ -46,25 +46,8 @@
         }
         .gd_right {
             color: #666;
-            text-align: center;
             padding-left: 30px;
-            .s {
-                color: #333;
-                font-size: 28px;
-            }
-            .eval {
-              line-height: 2;
-            }
-            .see_btn {
-                height: 40px;
-                line-height: 40px;
-                font-size: 24px;
-                color: #666;
-                border-radius:8px;
-                border:2px solid rgba(151,151,151,1);
-                background: transparent;
-                padding: 0 24px;
-            }
+            font-size: 40px;
         }
     }
     .good_standard {

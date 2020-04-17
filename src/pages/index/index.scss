@@ -41,17 +41,14 @@ page {
 
   .topic {
     .t_title_outer {
-      padding: 60px $padding_theme;
-    }
-
-    .t_title {
-      position: relative;
-      padding-left: 20px;
-      line-height: 1;
-      font-weight: bold;
-      font-size: $font_large_s;
-      color: $c3;
-      @include line-col(6px, #333, 4px);
+      padding: 50px 0;
+      .t_title {
+        position: relative;
+        font-weight: bold;
+        font-size: $font_large_s;
+        color: $c3;
+        text-align: center;
+      }
     }
   }
 

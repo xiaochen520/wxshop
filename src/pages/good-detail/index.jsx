@@ -44,8 +44,8 @@ export default class Index extends Component {
         shopSpecArr = res.data.itemSpecs;
 
         shopSpecArr.sort((a, b) => (a.priceNormal - b.priceNormal));
-
-        console.log(shopSpecArr)
+        shopInfo.price = shopSpecArr[0].priceDiscount;
+        shopInfo.originPrice = shopSpecArr[0].priceNormal;
       }
 
       this.setState({
@@ -75,9 +75,9 @@ export default class Index extends Component {
   }
 
   render() {
-    let { isShowGoodModal, bannerArr, shopInfo } = this.state;
+    let { isShowGoodModal, bannerArr, shopInfo, showLoading } = this.state;
 
-    let content = isShowGoodModal ? (
+    let content = showLoading ? (
       < Loading />
     ) : (
         <View className='good_detail'>
@@ -97,23 +97,25 @@ export default class Index extends Component {
 
           </Swiper>
 
-          <View className='good_desc flex'>
+          <View className='good_desc flex_middle'>
             <View className='flex_1 gd_left'>
               <View className='g_name'>
                 {shopInfo.itemName}
               </View>
-              <View className='g_desc'>大苹果描述</View>
+              {/* <View className='g_desc'>大苹果描述</View> */}
               <View className='g_price'>
                 <Text>￥</Text>
-                <Text className='s'>1200</Text>
-                <Text className='origin_price'>￥1200</Text>
+                <Text className='s'>
+                  {shopInfo.price}
+                </Text>
+                <Text className='origin_price'>
+                  ￥{shopInfo.originPrice}
+                </Text>
               </View>
             </View>
-            <View className='gd_right'>
-              <View className='s b'>50</View>
-              <View className="eval">用户评价</View>
-              <Button className='see_btn'>查看</Button>
-            </View>
+
+            <View className="gd_right b iconfont iconArtboardCopy"></View>
+
           </View>
 
           {/* 商品规格 */}
@@ -124,7 +126,7 @@ export default class Index extends Component {
               <View className='iconfont iconarrow-down'></View>
             </View>
 
-            <View className='gs_item flex'>
+            {/* <View className='gs_item flex'>
               <View className='gs_item_label'>服务</View>
               <View className='flex_1 flex_middle'>
                 <View className='gs_radio_list flex_1 flex_list'>
@@ -147,7 +149,7 @@ export default class Index extends Component {
                 </View>
                 <View className='iconfont iconarrow-down'></View>
               </View>
-            </View>
+            </View> */}
           </View>
 
           {/* 商品评价 */}

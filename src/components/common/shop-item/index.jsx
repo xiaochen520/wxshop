@@ -33,7 +33,7 @@ export default class Index extends Component {
             <View className='price_symbol'>￥</View>
             <View className='price_num'>{data.price}</View>
           </View>
-          {/* <View className='t2_desc'>{data.desc}</View> */}
+          <View className='t2_desc'>{"已销" + data.sellCounts + "件"}</View>
         </View>
       </View>
     )

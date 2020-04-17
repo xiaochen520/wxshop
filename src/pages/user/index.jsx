@@ -1,12 +1,21 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import { setToken, setUser } from "@/store/actions"
 import './index.scss'
 
 import icon from "@/imgs/user"
+import api from "@/api";
 
 @connect(({ user }) => ({
   user
+}), (dispatch) => ({
+  setToken(data) {
+    dispatch(setToken(data))
+  },
+  setUser(data) {
+    dispatch(setUser(data))
+  }
 }))
 
 class Index extends Component {
@@ -15,7 +24,7 @@ class Index extends Component {
   }
 
   componentWillMount() {
-    
+
   }
 
   componentDidMount() {
@@ -29,7 +38,7 @@ class Index extends Component {
   componentDidHide() { }
 
   goPage(page) {
-    if(!this.props.user.token) {
+    if (!this.props.user.token) {
       Taro.$util.gotoPage("/pages/wx-author/index");
     }
     Taro.$util.gotoPage(page);
@@ -37,15 +46,28 @@ class Index extends Component {
 
   verify = () => {
     let { user } = this.props;
-  
-    if(!user.token) {
+
+    if (!user.token) {
       this.goPage("/pages/wx-author/index");
     }
   }
 
+  exit = () => {
+    Taro.showModal({
+      title: "确定退出？",
+      content: "退出登录后将无法查看订单，重新登录即可查看"
+    }).then(res => {
+      if (res.confirm) {
+        Taro.removeStorageSync("token");
+        Taro.removeStorageSync("userInfo");
+        this.props.setToken("");
+        this.props.setUser(null);
+      }
+    });
+  }
+
   render() {
     let { user } = this.props;
-    console.log(user)
     return (
       <View className='my'>
 
@@ -56,7 +78,7 @@ class Index extends Component {
           </View>
         </View>
 
-        <View className="flex_middle other_list">
+        {/* <View className="flex_middle other_list">
           <View className="flex_1 o_item">
             <View className="oi_num">8</View>
             <View className="oi_label">优惠券</View>
@@ -69,7 +91,7 @@ class Index extends Component {
             <View className="oi_num">8</View>
             <View className="oi_label">优惠券</View>
           </View>
-        </View>
+        </View> */}
 
         <View className='order'>
           <View className="o_head flex_middle">
@@ -108,7 +130,19 @@ class Index extends Component {
             <View className='m_text flex_1'>收货地址</View>
             <Text className="iconfont iconarrow-down" />
           </View>
+          <View onClick={this.goPage.bind(this, "/pages/about-us/index")} className='m_item flex flex_v_c'>
+            <Image className='m_icon' scaleToFill src={icon.us} />
+            <View className='m_text flex_1'>关于我们</View>
+            <Text className="iconfont iconarrow-down" />
+          </View>
         </View>
+        {
+          user.token && (
+            <View className='exit'>
+              <Button className="exit_btn b" onClick={this.exit}>退出登录</Button>
+            </View>
+          )
+        }
       </View >
     )
   }

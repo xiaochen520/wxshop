@@ -3,10 +3,11 @@ import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import './index.scss'
 import WaterFall from "@/components/common/water-fall"
 
+import api from "@/api";
 export default class Index extends Component {
   
   state = {
-    topicArr: [],
+    shopArr: [],
     cateName: "",
     cateId: ""
   };
@@ -20,7 +21,21 @@ export default class Index extends Component {
 
   componentWillUnmount() { }
 
-  componentDidShow() { }
+  componentDidShow() { 
+    let { cateId, shopArr } = this.state;
+    let parms = {
+      catId: this.$router.params.cateId,
+      catType: 0,	//分类类型:0代表根分类,1代表其他分类	query	true	
+      page: 1,
+      pageSize: 10
+    }
+    Taro.$http.get(api.searchByCate, parms).then(res => {
+      console.log(res);
+      if(res.code === 200) {
+        shopArr = res.data.rows;
+      }
+    });
+  }
 
   componentDidHide() { }
 
@@ -33,17 +48,10 @@ export default class Index extends Component {
   }
 
   render() {
-    let { topicArr, cateName } = this.state;
+    let { shopArr, cateName } = this.state;
     return (
       <View className='shop_list'>
-        <View className="nav flex_middle">
-          <View className="input_box flex_1 flex_middle">
-            <Text className="iconfont iconsearch"></Text>
-            <Input value={cateName} onChange={this.inputChange} className="flex_1" placeholder="搜索单品"></Input>
-          </View>
-          <View className="cancel_btn">取消</View>
-        </View>
-        <WaterFall gutter="15" list={topicArr}></WaterFall>
+        <WaterFall gutter="15" list={shopArr}></WaterFall>
       </View>
     )
   }

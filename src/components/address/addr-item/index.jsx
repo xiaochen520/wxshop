@@ -21,24 +21,31 @@ export default class Index extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
+  
 
   render() {
+    let { data, onSetDefault, onDelete } = this.props;
     return (
       <View className='addr'>
-        <Text className="close iconfont iconsearchclose-"></Text>
+        <Text onClick={ onDelete } className="close iconfont iconsearchclose-"></Text>
         <View className="addr_head">
-          <Text className="name">陈佳迪</Text>
-          <Text>15226085502</Text>
+          <Text className="name">
+            {data.receiver}
+          </Text>
+          <Text>
+            {data.mobile}
+          </Text>
         </View>
-        <View className="addr_desc b">河南省郑州市金水区金城时代广场7好扣</View>
+        <View className="addr_desc b">
+          {data.province + data.city + data.district + data.detail}
+        </View>
         <View className="addr_foot flex_middle">
-          <View className="flex_1 a_f_left">
-            <Text className="iconfont iconpass_Line_icons"></Text>
+          <View onClick={ onSetDefault } className="flex_1 a_f_left">
+            <Text className={data.isDefault === 1 ? "iconfont iconpass_Flat_icons" : "iconfont iconpass_Line_icons"}></Text>
             <Text>设为默认</Text>
           </View>
           <View className="a_f_right">
             <Text className="a_f_right-btn">编辑</Text>
-            <Text className="a_f_right-btn">置顶</Text>
           </View>
         </View>
       </View>

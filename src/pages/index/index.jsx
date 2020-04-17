@@ -31,10 +31,6 @@ export default class Index extends Component {
 
   componentDidHide() { }
 
-  onReachBottom() {
-    this.getRecommends();
-  }
-
   //获取所有数据
   getData() {
     let { bannerArr, topicArr, hotCateArr } = this.state;
@@ -55,7 +51,7 @@ export default class Index extends Component {
   }
 
   //下拉获取热门商品
-  getRecommends() {
+  getRecommends = () => {
     Taro.$http.get(api.recommends, { page: this.topicPage, pageSize: this.topicPageSize }).then(res => {
       if (res.code == 200) {
         this.topicPage++;
@@ -76,7 +72,7 @@ export default class Index extends Component {
     let content = showLoading ? (
       < Loading />
     ) : (
-        <ScrollView scrollY className='index'>
+        <ScrollView onScrollToLower={this.getRecommends} lowerThreshold="50" scrollY className='index'>
           <Swiper
             indicatorColor='#666'
             indicatorActiveColor='#333'

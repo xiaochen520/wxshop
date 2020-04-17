@@ -21,7 +21,7 @@ let http = {
         const requestParams = chain.requestParams
         let backParms = callback(requestParams);
         if (backParms) {
-          return chain.proceed(callback(requestParams));
+          return chain.proceed(backParms);
         }
       };
       Taro.addInterceptor(interceptor);

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8810250",
+      "name": "share",
+      "font_class": "ArtboardCopy",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "14146147",
+      "name": "详细地址 (2)",
+      "font_class": "xiangxidizhi",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
       "icon_id": "10265376",
       "name": "search",
       "font_class": "search",

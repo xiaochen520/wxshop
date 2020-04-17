@@ -17,7 +17,7 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    this.getCategory();
+    this.getCategory(0);
   }
 
   componentWillUnmount() { }
@@ -27,34 +27,28 @@ export default class Index extends Component {
   componentDidHide() { }
 
   //获取分类
-  getCategory() {
-    let { categoryArr, categoryId } = this.state;
-    Taro.$http.get(api.catgorys).then(res => {
-      if (res.code == 200) {
-        categoryArr = res.data;
-        categoryId = res.data[0] && res.data[0].id
-        if (categoryId) {
-          this.getSubCategory(categoryId);
+  getCategory(id) {
+    let { categoryArr, categoryId, subCategoryArr } = this.state;
+    Taro.$http.get(api.catgorys + id).then(res => {
+      if (res.code === 200) {
+        if(id === 0) {
+          //当前是一级分类
+          categoryArr = res.data;
+          if(categoryArr.length) {
+            categoryId = res.data[0].id;
+            this.getCategory(categoryId);
+          }
+          this.setState({categoryArr, categoryId});
+        } else {
+          //二级分类
+          subCategoryArr = res.data;
+          this.setState({subCategoryArr});
         }
       }
-      this.setState({ categoryArr, categoryId });
+      
     }).catch(err => {
       console.log(err);
     });
-  }
-
-  //获取二级分类
-  getSubCategory(id) {
-    let { subCategoryArr } = this.state;
-    Taro.$http.get(api.subCategory + id).then(res => {
-      if (res.code == 200) {
-        subCategoryArr = res.data;
-      }
-      this.setState({ subCategoryArr });
-    }).catch(err => {
-      console.log(err);
-    });
-
   }
 
   goSearch() {
@@ -62,9 +56,14 @@ export default class Index extends Component {
   }
 
   clickCategory(id) {
+    if(this.state.categoryId === id) {
+      return;
+    }
     this.setState({
       categoryId: id
-    })
+    });
+
+    this.getCategory(id);
   }
 
   render() {
@@ -88,11 +87,10 @@ export default class Index extends Component {
                   )
                 })
               }
-
             </View>
           </ScrollView>
           <ScrollView scrollY class="cate_r flex_1">
-            <Image className='cr_top_img' mode='widthFix' src='http://img3.imgtn.bdimg.com/it/u=2065785368,1854943927&fm=26&gp=0.jpg' />
+            {/* <Image className='cr_top_img' mode='widthFix' src='http://img3.imgtn.bdimg.com/it/u=2065785368,1854943927&fm=26&gp=0.jpg' /> */}
             <View className='cr_top_title tc'>
               <View className='title_line cr_top_title_text'>全部分类</View>
             </View>

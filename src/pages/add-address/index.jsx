@@ -37,14 +37,12 @@ class Index extends Component {
     // }
     state = {
         addressInfo: {
-            Id: 0,//地址id
-            MarketRegionId: 0,//区域编号 
-            LinkMan: '',
-            LinkPhone: '',
-            AddressNote: '',//地址备注
-            HouseNum: '',//门牌号
-            ShopName: '',//店铺名字
-            IsDefault: 1,//是否默认
+            city: "",
+            detail: '',
+            district: '',
+            mobile: '',
+            province: '',
+            receiver: '',
         },
         isBlock: false,//城市列表显示
         selectText: '',//自定义区域选择弹窗
@@ -97,7 +95,7 @@ class Index extends Component {
     }
     // onShow
     componentDidShow() {
-        
+
     }
     // onUnload
     componentWillUnmount() {
@@ -217,63 +215,94 @@ class Index extends Component {
         // }, 20)
     }
 
-    
+    inputChange(key, e) {
+        let { addressInfo } = this.state;
+        addressInfo[key] = e.detail.value;
+        this.setState({ addressInfo });
+    }
+
+    changeAddr = e => {
+        let { addressInfo } = this.state;
+        addressInfo.province = e.detail.value[0];
+        addressInfo.city = e.detail.value[1];
+        addressInfo.district = e.detail.value[2];
+        this.setState({addressInfo});
+    }
+
+    saveAddr = () => {
+        Taro.$http.post(api.addAddr, this.state.addressInfo).then(res => {
+            if(res.code === 200) {
+                setTimeout(() => {
+                    Taro.navigateBack({
+                        delta: 1
+                    })
+                }, 1000);
+
+                Taro.showToast({
+                    title: "添加成功",
+                    duration: 1000,
+                    icon: "none"
+                })
+            }
+        });
+    }
 
     render() {
         let { addressInfo, title, fromType, isBlock, selectText, selectShop, pickerIndex, pickerList, pickerIdList, pickerId } = this.state;
         return (
-            <View className='index'>
+            <View className='add_addr'>
 
                 <View className="address_info">
                     <View className="address_info_options flex_middle hairline-bottom">
-                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
+                        <View className="iconfont iconziyuan"></View>
                         <Input className="options_input"
                             type='text'
                             placeholder="请填写收货人姓名"
                             placeholderClass="placeholderColor_big"
                             maxLength="5"
-                        // value={addressInfo.LinkMan}
-                        // onInput={this.handleInfo.bind(this, 1)}
+                            value={addressInfo.receiver}
+                            onInput={this.inputChange.bind(this, "receiver")}
                         />
+                        <View className="iconfont iconziyuan"></View>
                     </View>
                     <View className="address_info_options flex_middle hairline-bottom">
-                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
+                        <View className="iconfont iconziyuan1"></View>
                         <Input className="options_input"
                             type='number'
-                            placeholder={`请填写手机号`}
+                            placeholder="请填写手机号"
                             placeholderClass="placeholderColor_big"
                             maxLength="11"
-                        // value={addressInfo.LinkPhone}
-                        // onInput={this.handleInfo.bind(this, 2)}
+                            value={addressInfo.mobile}
+                            onInput={this.inputChange.bind(this, "mobile")}
                         />
                     </View>
                     <View className="address_info_options flex_middle hairline-bottom">
-                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
-                        <View className="options_picker flex_1">
-                            <View className={classNames('picker_text',
-                                { 'picker_text__active': selectText })}
-                            >请选择收货地址</View>
-                        </View>
-                        <Image className="address_info_arrow" src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
+                        <View className="iconfont iconziyuan2"></View>
+
+                        <Picker className="options_picker flex_1" mode='region' onChange={this.changeAddr}>
+                            <View className='picker'>
+                                {
+                                    addressInfo.province ? `当前选择：${addressInfo.province}-${addressInfo.city}-${addressInfo.district}` : "请选择收货地址"
+                                }
+                            </View>
+                        </Picker>
+
+                        <View className="iconfont iconarrow-down"></View>
                     </View>
-                    <View className="address_info_options flex_middle hairline-bottom">
-                        <Image src="http://img5.imgtn.bdimg.com/it/u=384227651,4131775936&fm=26&gp=0.jpg" />
+                    <View className="address_info_options flex_middle">
+                        <View className="iconfont iconxiangxidizhi"></View>
                         <Input className="options_input"
                             type='text'
-                            placeholder='详细地址，例1号楼2层201室'
+                            placeholder='详细地址'
                             placeholderClass="placeholderColor_big"
                             maxLength="30"
-                        // value={addressInfo.AddressNote}
-                        // onInput={this.handleInfo.bind(this, 3)}
+                            value={addressInfo.detail}
+                            onInput={this.inputChange.bind(this, "detail")}
                         />
                     </View>
                 </View>
-                <View className="default_address" onClick={this.handleAddress.bind(this)}>
-                    <Text className="default_address__text">设为默认地址</Text>
-                    <Switch color="#FF7A07" checked={addressInfo.IsDefault == 0 ? false : true} />
-                </View>
                 <View className="bottom_btn">
-                    <Button className="button_ele" hoverClass="none" onClick={this.handleSave.bind(this)}>保存</Button>
+                    <Button onClick={this.saveAddr} className="button_save" hoverClass="none">保存</Button>
                 </View>
             </View>
         )

@@ -1,8 +1,9 @@
 .shop_item {
   width: 330px;
   box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.11);
-  border-radius: 6px;
+  border-radius: 16px;
   margin-bottom: $margin_big;
+  overflow: hidden;
 
   .t2_img {
     width: 100%;
@@ -16,6 +17,7 @@
   .t2_name {
     font-size: $f28;
     color: $c3;
+    font-weight: 700;
   }
 
   .t2_label {
@@ -29,18 +31,17 @@
   }
 
   .t2_price {
-    font-size: $f20;
-    color: #ED5252;
+    font-size: 36px;
+    color: #FF3B30;
     margin: 10px 0;
 
     .price_num {
-      font-size: 26px;
       font-weight: bold;
     }
   }
 
   .t2_desc {
-    color: #666;
-    font-size: $font_little_m;
+    color: $c9;
+    font-size: 26px;
   }
 }
