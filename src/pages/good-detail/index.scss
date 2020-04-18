@@ -108,6 +108,7 @@
         }
     }
     .good_info {
+        padding-bottom: 90px;
         @extend .white_block;
         .gi_head {
             font-size: 26px;
@@ -121,6 +122,30 @@
             border-bottom: 2px dashed #F1F1F1;
             .gi_desc_label {
                 width: 160px;
+            }
+        }
+    }
+    .bottom_bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        .aside_m {
+            text-align: center;
+        }
+        .car_btn {
+            width: 70%;
+            color: #fff;
+            background: $theme_color;
+            font-size: 26px;
+            &_item {
+                height: 90px;
+                line-height: 90px;
+                text-align: center;
+            }
+            &_car {
+                background: ;
             }
         }
     }

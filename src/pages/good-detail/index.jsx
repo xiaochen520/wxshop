@@ -18,7 +18,8 @@ export default class Index extends Component {
     showLoading: true,
     bannerArr: [],
     shopInfo: null,
-    shopSpecArr: []
+    shopSpecArr: [],
+    goodModalType: ""
   }
 
   componentDidMount() {
@@ -41,11 +42,11 @@ export default class Index extends Component {
       if (res.code === 200) {
         bannerArr = res.data.itemImgs;
         shopInfo = res.data.item;
-        shopSpecArr = res.data.itemSpecs;
+        shopSpecArr = res.data.itemSpecInfo;
 
-        shopSpecArr.sort((a, b) => (a.priceNormal - b.priceNormal));
-        shopInfo.price = shopSpecArr[0].priceDiscount;
-        shopInfo.originPrice = shopSpecArr[0].priceNormal;
+        // shopSpecArr.sort((a, b) => (a.priceNormal - b.priceNormal));
+        // shopInfo.price = shopSpecArr[0].priceDiscount;
+        // shopInfo.originPrice = shopSpecArr[0].priceNormal;
       }
 
       this.setState({
@@ -62,9 +63,10 @@ export default class Index extends Component {
     })
   }
 
-  showGoodModal() {
+  showGoodModal(type = 1) {
     this.setState({
-      isShowGoodModal: true
+      isShowGoodModal: true,
+      goodModalType: type
     })
   }
 
@@ -75,7 +77,7 @@ export default class Index extends Component {
   }
 
   render() {
-    let { isShowGoodModal, bannerArr, shopInfo, showLoading } = this.state;
+    let { isShowGoodModal, bannerArr, shopInfo, showLoading, shopSpecArr, goodModalType } = this.state;
 
     let content = showLoading ? (
       < Loading />
@@ -122,7 +124,7 @@ export default class Index extends Component {
           <View className='good_standard'>
             <View onClick={this.showGoodModal.bind(this)} className='gs_item flex flex_v_c'>
               <View className='flex_1'>规格选择</View>
-              <View className='gs_style'>已选择：至尊款（超超超VIP）</View>
+              <View className='gs_style'>请选择商品规格</View>
               <View className='iconfont iconarrow-down'></View>
             </View>
 
@@ -186,7 +188,23 @@ export default class Index extends Component {
             </View>
           </View>
 
-          <GoodModal onClose={this.closeGoodModal.bind(this)} isOpen={isShowGoodModal}></GoodModal>
+          {/* 底部操作栏 */}
+          <View className="bottom_bar flex_middle">
+            <View className="aside_m flex_1">
+              <View className="iconfont iconhome_n"></View>
+              <View>首页</View>
+            </View>
+            <View className="aside_m flex_1">
+              <View className="iconfont iconshop_car"></View>
+              <View>购物车</View>
+            </View>
+            <View className="flex car_btn">
+              <View onClick={this.showGoodModal.bind(this, 0)} className="flex_1 car_btn_item car_btn_car">加入购物车</View>
+              <View className="flex_1 car_btn_item">立即购买</View>
+            </View>
+          </View>
+
+          <GoodModal type={goodModalType} data={shopSpecArr} onClose={this.closeGoodModal.bind(this)} isOpen={isShowGoodModal}></GoodModal>
         </View>
       )
 

@@ -21,7 +21,7 @@ export default class Index extends Component {
   }
 
   topicPage = 1
-  topicPageSize = 20
+  topicPageSize = 10
 
   componentDidMount() {
     this.getData();
@@ -72,7 +72,7 @@ export default class Index extends Component {
     let content = showLoading ? (
       < Loading />
     ) : (
-        <ScrollView onScrollToLower={this.getRecommends} lowerThreshold="50" scrollY className='index'>
+        <ScrollView scroll-anchoring onScrollToLower={this.getRecommends} lowerThreshold="50" scrollY className='index'>
           <Swiper
             indicatorColor='#666'
             indicatorActiveColor='#333'

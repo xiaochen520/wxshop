@@ -1,10 +1,12 @@
 page {
   height: 100%;
   overflow: hidden;
+  background: $bg_color_gray;
 }
 
 .index {
   height: 100%;
+  overflow-anchor: none;
   .swipper {
     .s_img {
       width: 100%;
@@ -14,7 +16,7 @@ page {
 
   .nav {
     padding: $padding_big;
-
+    background: #fff;
     &_list {
       align-content: space-between;
       .nav_item {

@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "905218",
+      "name": "line",
+      "font_class": "xiaotiao",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "11180132",
+      "name": "shop_car",
+      "font_class": "shop_car",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "11727572",
+      "name": "home",
+      "font_class": "home_n",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "14157461",
+      "name": "关于我们",
+      "font_class": "guanyuwomen",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "14157462",
+      "name": "收货地址",
+      "font_class": "shouhuodizhi",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "14157463",
+      "name": "优惠券",
+      "font_class": "youhuiquan",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "14157464",
+      "name": "全部订单",
+      "font_class": "quanbudingdan",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
       "icon_id": "8810250",
       "name": "share",
       "font_class": "ArtboardCopy",
