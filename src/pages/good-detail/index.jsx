@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Swiper, SwiperItem, Button, Text } from '@tarojs/components'
+import { View, Image, Swiper, SwiperItem, Text } from '@tarojs/components'
 import './index.scss'
-import NumHandle from '@/components/shop-cart/num-handle';
 import GoodModal from '@/components/good-detail/good-modal';
 import Loading from "@/components/common/loading"
 
@@ -19,11 +18,17 @@ export default class Index extends Component {
     bannerArr: [],
     shopInfo: null,
     shopSpecArr: [],
-    goodModalType: ""
+    goodModalType: "",
+    goodModalDefaultVal: {
+      id: 0,
+      url: "",
+      name: "",
+      price: 0,
+      originPrice: 0
+    }
   }
 
   componentDidMount() {
-    this.setState({ showLoading: true });
     this.getGoodInfo();
   }
 
@@ -44,14 +49,21 @@ export default class Index extends Component {
         shopInfo = res.data.item;
         shopSpecArr = res.data.itemSpecInfo;
 
-        // shopSpecArr.sort((a, b) => (a.priceNormal - b.priceNormal));
-        // shopInfo.price = shopSpecArr[0].priceDiscount;
-        // shopInfo.originPrice = shopSpecArr[0].priceNormal;
+        shopSpecArr[0].itemSpecs.sort((a, b) => (a.priceNormal - b.priceNormal));
+        shopInfo.price = shopSpecArr[0].itemSpecs[0].priceDiscount;
+        shopInfo.originPrice = shopSpecArr[0].itemSpecs[0].priceNormal;
       }
 
       this.setState({
         bannerArr, shopInfo, shopSpecArr,
-        showLoading: false
+        showLoading: false,
+        goodModalDefaultVal: {
+          id: shopInfo.id,
+          url: bannerArr[0].url,
+          name: shopInfo.itemName,
+          price: shopInfo.price,
+          originPrice: shopInfo.originPrice
+        }
       });
     });
   }
@@ -77,7 +89,7 @@ export default class Index extends Component {
   }
 
   render() {
-    let { isShowGoodModal, bannerArr, shopInfo, showLoading, shopSpecArr, goodModalType } = this.state;
+    let { isShowGoodModal, bannerArr, shopInfo, showLoading, shopSpecArr, goodModalType, goodModalDefaultVal } = this.state;
 
     let content = showLoading ? (
       < Loading />
@@ -155,7 +167,7 @@ export default class Index extends Component {
           </View>
 
           {/* 商品评价 */}
-          <View className='good_eval'>
+          {/* <View className='good_eval'>
             <View className='ge_head flex flex_v_c'>
               <View className='flex_1'>用户评价（25万+）</View>
               <View>查看全部</View>
@@ -169,23 +181,13 @@ export default class Index extends Component {
               <View className='ge_i_desc'>尊贵奢华，是我此生不换的产品~</View>
               <View className='ge_i_time'>2020-01-15 22:59:59 陈佳迪</View>
             </View>
-          </View>
+          </View> */}
 
           {/* 商品描述 */}
           <View className='good_info'>
-            <View className='gi_head'>商品参数</View>
-            <View className='gi_desc_item flex'>
-              <View className='gi_desc_label'>品牌</View>
-              <View>劳力士</View>
-            </View>
-            <View className='gi_desc_item flex'>
-              <View className='gi_desc_label'>名称</View>
-              <View>劳力士</View>
-            </View>
-            <View className='gi_desc_item flex'>
-              <View className='gi_desc_label'>规格</View>
-              <View>劳力士</View>
-            </View>
+            <View className='gi_head'>商品详情</View>
+
+            <RichText nodes={shopInfo.content} />
           </View>
 
           {/* 底部操作栏 */}
@@ -204,7 +206,7 @@ export default class Index extends Component {
             </View>
           </View>
 
-          <GoodModal type={goodModalType} data={shopSpecArr} onClose={this.closeGoodModal.bind(this)} isOpen={isShowGoodModal}></GoodModal>
+          <GoodModal defaultVal={goodModalDefaultVal} type={goodModalType} data={shopSpecArr} onClose={this.closeGoodModal.bind(this)} isOpen={isShowGoodModal}></GoodModal>
         </View>
       )
 

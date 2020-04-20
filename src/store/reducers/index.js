@@ -2,35 +2,45 @@ import {
   combineReducers
 } from 'redux'
 import {
-    SET_TOKEN,
-    SET_USER
+  SET_TOKEN,
+  SET_USER,
+  Add_CAR
 } from '../actionTypes'
 
-const INITIAL_STATE = {
-  token: "",
-  userInfo: null
+function user(state, action) {
+  switch (action.type) {
+    case SET_TOKEN:
+      return {
+        token: action.data,
+        userInfo: state.userInfo
+      }
+      case SET_USER:
+        return {
+          userInfo: action.data,
+          token: state.token
+        }
+
+        default:
+          return state || {
+            token: "",
+            userInfo: null
+          }
+  }
 }
 
-
-function user (state=INITIAL_STATE, action) {
-    
-    switch (action.type) {  
-      case SET_TOKEN:      
-        return {
-          ...state,
-          token: action.data
-        }
-      case SET_USER:      
-        return {
-          ...state,
-          userInfo: action.data
-        }
-        
+function shopCar(state, action) {
+  switch (action.type) {
+    case Add_CAR:
+      return {
+        shopCarArr: action.data
+      }
       default:
-        return state
-    }
+        return state || {
+          shopCarArr: []
+        }
   }
+}
 
-  export default combineReducers({
-    user
-  })
+export default combineReducers({
+  user, shopCar
+})

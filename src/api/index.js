@@ -18,5 +18,9 @@ export default {
     deleteAddr: "/address/delete",
 
     //商品
-    goodInfo: "/items/info/"
+    goodInfo: "/items/info/",
+
+    //购物车
+    shopCar: "/shopcart/get",
+    addShopCar: "/shopcart/add"
 }

@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 import configStore from './store'
 import Index from './pages/index'
+import api from "@/api"
 
 const store = configStore()
 
@@ -17,22 +18,22 @@ Taro.$http = http;
 http.defaults.baseURL = "https://api.langyiquan.com";
 
 http.interceptors.request(config => {
-//请求拦截器
-let token = store.getState().user.token;
-if(token) {
-  config.header = {
-    Authorization: token
-  };
-}
+  //请求拦截器
+  let token = store.getState().user.token;
+  if (token) {
+    config.header = {
+      Authorization: token
+    };
+  }
 
-return config;
+  return config;
 });
 
 http.interceptors.response(config => {
   //响应拦截器
   // console.log("config", config);
-  
-  if(config.code === 1004) {
+
+  if (config.code === 1004) {
     util.gotoPage("pages/wx-author/index");
   }
   return config;
@@ -62,6 +63,7 @@ class App extends Component {
       "pages/wx-author/index", //授权页面
       "pages/author-login/index", //登录页面
       "pages/about-us/index", //关于我们
+      "pages/confirm-order/index", //确认订单
     ],
     "window": {
       "navigationBarBackgroundColor": "#fff",
@@ -104,12 +106,16 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
+    this.initData();
+  }
+
+  initData() {
     let userStore = store.getState().user;
     let token = Taro.getStorageSync("token");
     let userInfo = Taro.getStorageSync("userInfo");
-  
-    if(!userStore.token && token) {
+    
+    if (!userStore.token && token) {
       store.dispatch({
         type: 'SET_TOKEN',
         data: token
@@ -120,11 +126,28 @@ class App extends Component {
         data: userInfo
       });
     }
+    
+    if(store.getState().user.token) {
+      //获取购物车
+      this.getShopCar();
+    }
+  }
+
+  //获取购物车
+  getShopCar() {
+    Taro.$http.get(api.shopCar).then(res => {
+      if(res.code === 200 && res.data.length) {
+        store.dispatch({
+          type: 'Add_CAR',
+          data: res.data
+        });
+      }
+    });
   }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <Index />
