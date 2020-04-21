@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Input, Switch, Picker, Textarea } from '@tarojs/components'
+import { View, Text, Input, Switch, Picker, Textarea, Button } from '@tarojs/components'
 import './index.scss'
 import api from "@/api";
 
@@ -34,13 +34,15 @@ class Index extends Component {
 
                 </View>
                 
-                <View className="foot_bar">
-                    <View>
-
+                <View className="foot_bar flex_middle">
+                    <View className="flex_1">
+                        <View>共4件</View>
+                        <View>
+                            <View>合计：</View>
+                            <View>589元</View>
+                        </View>
                     </View>
-                    <View>
-                        
-                    </View>
+                    <Button className="save_btn">提交订单</Button>
                 </View>
             </View>
         )

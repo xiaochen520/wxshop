@@ -18,14 +18,7 @@ export default class Index extends Component {
     bannerArr: [],
     shopInfo: null,
     shopSpecArr: [],
-    goodModalType: "",
-    goodModalDefaultVal: {
-      id: 0,
-      url: "",
-      name: "",
-      price: 0,
-      originPrice: 0
-    }
+    goodModalType: 1, // 0购物车  1购买
   }
 
   componentDidMount() {
@@ -46,26 +39,35 @@ export default class Index extends Component {
     Taro.$http.get(api.goodInfo + this.$router.params.id).then(res => {
       if (res.code === 200) {
         bannerArr = res.data.itemImgs;
-        shopInfo = res.data.item;
+        shopInfo = res.data.itemBaseInfoVO;
         shopSpecArr = res.data.itemSpecInfo;
-
-        shopSpecArr[0].itemSpecs.sort((a, b) => (a.priceNormal - b.priceNormal));
-        shopInfo.price = shopSpecArr[0].itemSpecs[0].priceDiscount;
-        shopInfo.originPrice = shopSpecArr[0].itemSpecs[0].priceNormal;
       }
 
       this.setState({
         bannerArr, shopInfo, shopSpecArr,
-        showLoading: false,
-        goodModalDefaultVal: {
-          id: shopInfo.id,
-          url: bannerArr[0].url,
-          name: shopInfo.itemName,
-          price: shopInfo.price,
-          originPrice: shopInfo.originPrice
-        }
+        showLoading: false
       });
     });
+  }
+
+  //确认商品
+  confirmShop(parms) {
+    let { goodModalType } = this.state;
+
+    if (goodModalType) {
+      Taro.$util.gotoPage("/pages/confirm-order/index");
+    } else {
+      //购物车
+      Taro.$http.post(api.addShopCar, parms).then(res => {
+
+        if (res.code === 200) {
+          Taro.showToast({
+            title: '添加成功，在购物车等您~',
+            icon: 'none'
+          })
+        }
+      });
+    }
   }
 
   // 预览图片
@@ -89,7 +91,7 @@ export default class Index extends Component {
   }
 
   render() {
-    let { isShowGoodModal, bannerArr, shopInfo, showLoading, shopSpecArr, goodModalType, goodModalDefaultVal } = this.state;
+    let { isShowGoodModal, bannerArr, shopInfo, showLoading, shopSpecArr, goodModalType } = this.state;
 
     let content = showLoading ? (
       < Loading />
@@ -116,15 +118,14 @@ export default class Index extends Component {
               <View className='g_name'>
                 {shopInfo.itemName}
               </View>
-              {/* <View className='g_desc'>大苹果描述</View> */}
               <View className='g_price'>
                 <Text>￥</Text>
                 <Text className='s'>
                   {shopInfo.price}
                 </Text>
-                <Text className='origin_price'>
+                {/* <Text className='origin_price'>
                   ￥{shopInfo.originPrice}
-                </Text>
+                </Text> */}
               </View>
             </View>
 
@@ -206,7 +207,7 @@ export default class Index extends Component {
             </View>
           </View>
 
-          <GoodModal defaultVal={goodModalDefaultVal} type={goodModalType} data={shopSpecArr} onClose={this.closeGoodModal.bind(this)} isOpen={isShowGoodModal}></GoodModal>
+          <GoodModal shopData={shopInfo} type={goodModalType} data={shopSpecArr} onConfirm={this.confirmShop.bind(this)} onClose={this.closeGoodModal.bind(this)} isOpen={isShowGoodModal}></GoodModal>
         </View>
       )
 

@@ -1,52 +1,94 @@
 .shop_cart {
-    .s_list {
-        .s_item {
-            padding: $padding_theme;
-            border-top: 2px solid #F1F1F1;
-            .iconfont {
-                font-size: 40px;
-                margin-right: 30px;
-            }
-            .iconpass_Line_icons {
-                color: #ccc;
-            }
-            .iconpass_Flat_icons {
-                color: $theme_color;
-            }
-            .s_photo {
-                width: 160px;
-                height: 160px;
-                margin-right: 20px;
-            }
-            .s_name {
-                color: #444444;
-                font-weight: 700;
-                margin-bottom: 10px;
-            }
-            .s_label {
-                background: #F5F5F5;
-                border-radius: 4px;
-                font-size: $font_little_m;
-                color: #888888;
-                display: inline-block;
-                line-height: 36px;
-                padding: 0 15px;
-                margin-bottom: 30px;
-            }
-            .s_price {
-                font-size: 20px;
-                color: $theme_color;
-                .s {
-                    font-size: 26px;
-                    font-weight: 700;
-                }
-            }
+  .s_list {
+    .s_item {
+      padding: $padding_theme;
+      border-top: 2px solid #F1F1F1;
+
+      .iconfont {
+        font-size: 40px;
+        margin-right: 30px;
+      }
+
+      .iconpass_Line_icons {
+        color: #ccc;
+      }
+
+      .iconpass_Flat_icons {
+        color: $theme_color;
+      }
+
+      .s_photo {
+        width: 160px;
+        height: 160px;
+        margin-right: 20px;
+      }
+
+      .s_name {
+        color: #444444;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .s_label {
+        background: #F5F5F5;
+        border-radius: 4px;
+        font-size: $font_little_m;
+        color: #888888;
+        display: inline-block;
+        line-height: 36px;
+        padding: 0 15px;
+        margin-bottom: 30px;
+      }
+
+      .s_price {
+        font-size: 20px;
+        color: $theme_color;
+
+        .s {
+          font-size: 26px;
+          font-weight: 700;
         }
+      }
     }
-    .foot {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+  }
+
+  .car_bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left: 30px;
+    color: $c3;
+    border: 1px solid rgba(241, 241, 241, 1);
+
+    .iconfont {
+      font-size: 40px;
+      margin-right: 16px;
+      color: $c6;
     }
+
+    .iconpass_Flat_icons {
+        color: $theme_color;
+    }
+
+    .price {
+      font-size: 20px;
+      color: #ED5252;
+      padding: 0 20px;
+
+      .s {
+        font-size: 26px;
+        font-weight: bold;
+      }
+    }
+
+    .btn {
+      color: #fff;
+      font-size: 32px;
+      height: 84px;
+      line-height: 84px;
+      width: 200px;
+      background: $theme_color;
+    }
+  }
 }

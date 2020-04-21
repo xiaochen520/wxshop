@@ -111,6 +111,7 @@
     .good_info {
         padding-bottom: 90px;
         @extend .white_block;
+        overflow: hidden;
         .gi_head {
             font-size: 26px;
             color: #333;
@@ -135,6 +136,7 @@
         background: #fff;
         .aside_m {
             text-align: center;
+            color: $c6;
         }
         .car_btn {
             width: 70%;

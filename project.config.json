@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./dist",
   "projectname": "lyq-wxapp",
-  "description": "小程序商城",
+  "description": "化妆品微信小程序商城",
   "appid": "wx2f9338a8bc87bdd6",
   "setting": {
     "urlCheck": true,

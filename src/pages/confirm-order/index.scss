@@ -3,5 +3,23 @@ page {
 }
 
 .confirm {
-  
+  padding: 0 30px;
+  .user_info {
+
+  }
+  .shop_info {
+
+  }
+  .foot_bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    .save_btn {
+      width: 120px;
+      background: $theme_color;
+      color: #fff;
+    }
+  }
 }

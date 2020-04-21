@@ -18,7 +18,6 @@ export default class Index extends Component {
 
   state = {
     currentItem: null,
-    selectedRule: null,
     count: 1
   }
 
@@ -54,36 +53,18 @@ export default class Index extends Component {
 
       return;
     }
-    
-    if (!this.props.type) {
-      //购物车
-      let parms = {
-        buyCounts: count,
-        itemId: this.props.defaultVal.id,
-        itemImgUrl: "",
-        itemName: this.props.defaultVal.name,
-        priceDiscount: currentItem.priceDiscount,
-        priceNormal: currentItem.priceNormal,
-        specId: currentItem.id,
-        specName: currentItem.specName
-      }
-      Taro.$http.post(api.addShopCar, parms).then(res => {
-        if(res.code === 200) {
-          this.close();
-          Taro.showToast({
-            title: '添加成功，在购物车等您~',
-            icon: 'none'
-          })
-        }
-      });
-    } else {
 
+    let parms = {
+      buyCounts: count,
+      specId: currentItem.id
     }
+
+    this.props.onConfirm(parms);
   }
 
   render() {
     // type: 0购物车  1购买
-    let { isOpen, type, data, defaultVal } = this.props;
+    let { isOpen, type, data, shopData } = this.props;
     let { currentItem, count } = this.state;
 
     return (
@@ -91,14 +72,14 @@ export default class Index extends Component {
         <View onClick={e => { e.stopPropagation() }} className="modal_box flex_v">
           <View className="close iconfont iconarrow-down"></View>
           <View className="modal_head flex_middle">
-            <Image className="modal_head_pic" mode="aspectFill" src={currentItem ? currentItem.specImg : defaultVal.url}></Image>
+            <Image className="modal_head_pic" mode="aspectFill" src={currentItem ? currentItem.specImg : shopData.imgUrl}></Image>
             <View className="flex_1">
               <View className="modal_head_price">￥
                 {
-                  currentItem ? currentItem.priceNormal : defaultVal.price
+                  currentItem ? currentItem.priceNormal : shopData.price
                 }
               </View>
-              <View className="modal_head_name">{defaultVal.name}</View>
+              <View className="modal_head_name">{shopData.itemName}</View>
               <View className="modal_head_type">请选择：
                 {
                   data.map(e => e.specKey).join("、")

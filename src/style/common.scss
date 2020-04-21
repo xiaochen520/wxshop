@@ -13,6 +13,9 @@ button {
     padding-right: 0;
     display: inline-block;
     line-height: normal;
+    font-size: 24px;
+    border-radius: 0;
+    background: transparent;
     &::after {
         display: none;
     }
@@ -99,9 +102,4 @@ button {
         left: 100%;
         @extend .insert_content;
     }
-}
-
-
-.btn.button-hover {
-    background: #627B89;
 }

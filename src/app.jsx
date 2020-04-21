@@ -69,7 +69,7 @@ class App extends Component {
       "navigationBarBackgroundColor": "#fff",
       "navigationBarTitleText": "cookbook",
       "navigationBarTextStyle": "black",
-      "navigationBarTitleText": '浪一圈',
+      "navigationBarTitleText": '美妆馆',
       onReachBottomDistance: 50
     },
     "tabBar": {
