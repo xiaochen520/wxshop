@@ -4,7 +4,8 @@ import {
 import {
   SET_TOKEN,
   SET_USER,
-  Add_CAR
+  Add_CAR,
+  SET_ORDER
 } from '../actionTypes'
 
 function user(state, action) {
@@ -32,11 +33,18 @@ function shopCar(state, action) {
   switch (action.type) {
     case Add_CAR:
       return {
-        shopCarArr: action.data
+        shopCarArr: action.data,
+        confirmOrderArr: state.confirmOrderArr
+      }
+    case SET_ORDER:
+      return {
+        confirmOrderArr: action.data,
+        shopCarArr: state.shopCarArr
       }
       default:
         return state || {
-          shopCarArr: []
+          shopCarArr: [],
+          confirmOrderArr: []
         }
   }
 }

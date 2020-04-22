@@ -15,13 +15,14 @@ page {
   }
 
   .nav {
-    padding: $padding_big;
+    padding: 40px 0 10px;
     background: #fff;
     &_list {
       align-content: space-between;
       .nav_item {
         width: 25%;
         text-align: center;
+        margin-bottom: 30px;
 
         .nav_icon {
           width: 120px;

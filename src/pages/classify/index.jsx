@@ -14,6 +14,7 @@ export default class Index extends Component {
     categoryArr: [],
     categoryId: 0,
     subCategoryArr: [],
+    cateLogo: ""
   }
 
   componentDidMount() {
@@ -28,7 +29,7 @@ export default class Index extends Component {
 
   //获取分类
   getCategory(id) {
-    let { categoryArr, categoryId, subCategoryArr } = this.state;
+    let { categoryArr, categoryId, subCategoryArr, cateLogo } = this.state;
     Taro.$http.get(api.catgorys + id).then(res => {
       if (res.code === 200) {
         if(id === 0) {
@@ -36,9 +37,10 @@ export default class Index extends Component {
           categoryArr = res.data;
           if(categoryArr.length) {
             categoryId = res.data[0].id;
+            cateLogo = res.data[0].logo;
             this.getCategory(categoryId);
           }
-          this.setState({categoryArr, categoryId});
+          this.setState({categoryArr, categoryId, cateLogo});
         } else {
           //二级分类
           subCategoryArr = res.data;
@@ -55,19 +57,20 @@ export default class Index extends Component {
     Taro.$util.gotoPage("/pages/search/index");
   }
 
-  clickCategory(id) {
-    if(this.state.categoryId === id) {
+  clickCategory(e) {
+    if(this.state.categoryId === e.id) {
       return;
     }
     this.setState({
-      categoryId: id
+      categoryId: e.id,
+      cateLogo: e.logo
     });
 
-    this.getCategory(id);
+    this.getCategory(e.id);
   }
 
   render() {
-    let { categoryArr, categoryId, subCategoryArr } = this.state;
+    let { categoryArr, categoryId, subCategoryArr, cateLogo } = this.state;
     return (
       <View class="cate flex flex_v">
         <View onClick={this.goSearch} class="search flex flex_h_c">
@@ -81,8 +84,8 @@ export default class Index extends Component {
                 categoryArr.map(e => {
                   let categoryClass = e.id === categoryId ? "cl_item active" : "cl_item";
                   return (
-                    <View className='cl_item_box'>
-                      <View onClick={this.clickCategory.bind(this, e.id)} class={categoryClass}>{e.name}</View>
+                    <View key={e.id} className='cl_item_box'>
+                      <View onClick={this.clickCategory.bind(this, e)} class={categoryClass}>{e.name}</View>
                     </View>
                   )
                 })
@@ -90,7 +93,11 @@ export default class Index extends Component {
             </View>
           </ScrollView>
           <ScrollView scrollY class="cate_r flex_1">
-            {/* <Image className='cr_top_img' mode='widthFix' src='http://img3.imgtn.bdimg.com/it/u=2065785368,1854943927&fm=26&gp=0.jpg' /> */}
+            {
+              cateLogo && (
+                <Image className='cr_top_img' mode='widthFix' src={cateLogo} />
+              )
+            }
             <View className='cr_top_title tc'>
               <View className='title_line cr_top_title_text'>全部分类</View>
             </View>
@@ -98,8 +105,8 @@ export default class Index extends Component {
               {
                 subCategoryArr.map(e => {
                   return (
-                    <View class="cr_item">
-                      <Image className='cr_icon' mode='aspectFill' src='http://img5.imgtn.bdimg.com/it/u=3302417983,3672424730&fm=26&gp=0.jpg' />
+                    <View key={e.id} class="cr_item">
+                      <Image className='cr_icon' mode='aspectFill' src={e.catImage} />
                       <View class="cr_name">{e.name}</View>
                     </View>
                   )

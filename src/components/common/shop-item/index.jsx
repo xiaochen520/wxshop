@@ -28,7 +28,6 @@ export default class Index extends Component {
         <Image className='t2_img' mode='widthFix' src={data.imgUrl} />
         <View className='t2_item_box'>
           <View className='t2_name'>{data.itemName}</View>
-          {/* <View className='t2_label'>{data.type}</View> */}
           <View className='t2_price flex flex_v_c'>
             <View className='price_symbol'>￥</View>
             <View className='price_num'>{data.price}</View>

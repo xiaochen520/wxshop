@@ -137,6 +137,7 @@ class App extends Component {
   getShopCar() {
     Taro.$http.get(api.shopCar).then(res => {
       if(res.code === 200 && res.data.length) {
+        res.data.forEach(e => {e.select = false});
         store.dispatch({
           type: 'Add_CAR',
           data: res.data

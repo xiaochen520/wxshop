@@ -20,8 +20,9 @@ export default class Index extends Component {
     showLoading: true
   }
 
-  topicPage = 1
-  topicPageSize = 10
+  page = 1
+  pageSize = 10
+  hasMore = true
 
   componentDidMount() {
     this.getData();
@@ -37,13 +38,13 @@ export default class Index extends Component {
     let reqArr = [
       Taro.$http.get(api.carousel),
       Taro.$http.get(api.hotCategory),
-      Taro.$http.get(api.recommends, { page: this.topicPage, pageSize: this.topicPageSize })
+      Taro.$http.get(api.recommends, { page: this.page, pageSize: this.pageSize })
     ];
     Taro.$http.all(reqArr).then(([carousel, cate, recommends]) => {
       bannerArr = carousel.data;
       hotCateArr = cate.data;
       topicArr = recommends.data.rows;
-      this.topicPage++;
+      this.page++;
       this.setState({ bannerArr, topicArr, hotCateArr, showLoading: false });
     }).catch(err => {
       console.log(err);
@@ -52,9 +53,15 @@ export default class Index extends Component {
 
   //下拉获取热门商品
   getRecommends = () => {
-    Taro.$http.get(api.recommends, { page: this.topicPage, pageSize: this.topicPageSize }).then(res => {
+    if(!this.hasMore) {
+      return;
+    }
+    Taro.$http.get(api.recommends, { page: this.page, pageSize: this.pageSize }).then(res => {
       if (res.code == 200) {
-        this.topicPage++;
+        this.page++;
+        if(res.data.rows.length < this.pageSize) {
+          this.hasMore = false;
+        }
         this.setState({
           topicArr: res.data.rows
         });

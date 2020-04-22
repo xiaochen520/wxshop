@@ -1,4 +1,4 @@
-import { SET_TOKEN, SET_USER, Add_CAR } from '../actionTypes';
+import { SET_TOKEN, SET_USER, Add_CAR, SET_ORDER } from '../actionTypes';
 
 export const setToken = data => ({
     type: SET_TOKEN,
@@ -12,5 +12,10 @@ export const setUser = data => ({
 
 export const addCar = data => ({
     type: Add_CAR,
+    data,
+});
+
+export const setOrder = data => ({
+    type: SET_ORDER,
     data,
 });

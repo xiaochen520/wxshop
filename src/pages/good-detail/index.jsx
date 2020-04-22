@@ -3,8 +3,18 @@ import { View, Image, Swiper, SwiperItem, Text } from '@tarojs/components'
 import './index.scss'
 import GoodModal from '@/components/good-detail/good-modal';
 import Loading from "@/components/common/loading"
+import { addCar } from "@/store/actions"
+import { connect } from '@tarojs/redux'
 
 import api from "@/api"
+
+@connect(({ shopCar }) => ({
+  shopCar
+}), (dispatch) => ({
+  addCar(data) {
+    dispatch(addCar(data))
+  }
+}))
 
 export default class Index extends Component {
 
@@ -53,7 +63,6 @@ export default class Index extends Component {
   //确认商品
   confirmShop(parms) {
     let { goodModalType } = this.state;
-
     if (goodModalType) {
       Taro.$util.gotoPage("/pages/confirm-order/index");
     } else {
@@ -61,6 +70,7 @@ export default class Index extends Component {
       Taro.$http.post(api.addShopCar, parms).then(res => {
 
         if (res.code === 200) {
+          this.updateShopCar();
           Taro.showToast({
             title: '添加成功，在购物车等您~',
             icon: 'none'
@@ -68,6 +78,17 @@ export default class Index extends Component {
         }
       });
     }
+  }
+
+  //更新购物车
+  updateShopCar() {
+    let { addCar } = this.props;
+    Taro.$http.get(api.shopCar).then(res => {
+      if(res.code === 200 && res.data.length) {
+        res.data.forEach(e => {e.select = false});
+        addCar(res.data);
+      }
+    });
   }
 
   // 预览图片

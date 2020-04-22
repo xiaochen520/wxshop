@@ -22,5 +22,8 @@ export default {
 
     //购物车
     shopCar: "/shopcart/get",
-    addShopCar: "/shopcart/add"
+    addShopCar: "/shopcart/add",
+
+    //订单
+    createOrder: "/orders/create",
 }
