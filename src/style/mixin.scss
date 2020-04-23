@@ -1,7 +1,7 @@
 // 边框
 @mixin line-col($width, $color, $radius: 0px, $dir: left) {
   position: relative;
-  &::before {
+  &:after {
     content: '';
     position: absolute;
     top: 0;

@@ -43,7 +43,7 @@ export default class Index extends Component {
     return (
       <View className='coupon'>
         {
-          couponList.map(e => (
+          couponList.map((e, i) => (
             <View className="c_item flex_middle">
               <View className="flex_1 c_left tc">
                 <View className='cl_name'>特定商品优惠券</View>

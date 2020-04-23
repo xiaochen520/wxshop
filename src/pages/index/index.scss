@@ -7,6 +7,7 @@ page {
 .index {
   height: 100%;
   overflow-anchor: none;
+
   .swipper {
     .s_img {
       width: 100%;
@@ -17,18 +18,22 @@ page {
   .nav {
     padding: 40px 0 10px;
     background: #fff;
+
     &_list {
       align-content: space-between;
+      padding: 0 30px;
+
       .nav_item {
         width: 25%;
         text-align: center;
         margin-bottom: 30px;
 
         .nav_icon {
-          width: 120px;
-          height: 120px;
+          width: 90px;
+          height: 90px;
           margin-bottom: 10px;
         }
+
         .nav_name {
           color: $c3;
         }
@@ -43,14 +48,30 @@ page {
   }
 
   .topic {
+    padding: 0 $padding_theme;
+    margin-top: 50px;
     .t_title_outer {
-      padding: 50px 0;
+      color: $c3;
+      margin-bottom: 50px;
+
       .t_title {
         position: relative;
-        font-weight: bold;
-        font-size: $font_large_s;
-        color: $c3;
-        text-align: center;
+        font-weight: 700;
+        font-size: 36px;
+        padding-right: 16px;
+        vertical-align: middle;
+        @include line-col(4px, #333, 2px, right);
+
+        &:after {
+          height: 25px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      .t_title_sub {
+        vertical-align: middle;
+        margin-left: 16px;
       }
     }
   }
@@ -84,24 +105,28 @@ page {
   .topic2 {
     .t2_list {
       justify-content: space-between;
-      padding: 0 $padding_theme;
+
       .t2_item {
         width: 330px;
-        box-shadow:0px 2px 11px 0px rgba(0,0,0,0.11);
-        border-radius:6px;
+        box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.11);
+        border-radius: 6px;
         margin-bottom: $margin_big;
+
         .t2_img {
           width: 330px;
           height: 330px;
         }
+
         .t2_item_box {
           padding: $gap20;
           padding-bottom: $padding_theme;
         }
+
         .t2_name {
           font-size: $f28;
           color: $c3;
         }
+
         .t2_label {
           margin-top: 10px;
           font-size: $f20;
@@ -111,15 +136,18 @@ page {
           display: inline-block;
           padding: 0 8px;
         }
+
         .t2_price {
           font-size: $f20;
           color: #ED5252;
           margin: 10px 0;
+
           .price_num {
             font-size: 26px;
             font-weight: bold;
           }
         }
+
         .t2_desc {
           color: #666;
           font-size: $font_little_m;

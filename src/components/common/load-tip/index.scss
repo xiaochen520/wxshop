@@ -1,0 +1,18 @@
+.tip {
+  padding: 40px 0;
+  .line {
+    height: 4px;
+    width: 64px;
+  }
+  .line_left {
+    background: linear-gradient(left, #f3f3f3 0%,#999 100%);
+  }
+  .line_right {
+    background: linear-gradient(right, #f3f3f3 0%,#999 100%);
+  }
+  &_text {
+    font-size: 22px;
+    color: #999;
+    margin: 0 20px;
+  }
+}

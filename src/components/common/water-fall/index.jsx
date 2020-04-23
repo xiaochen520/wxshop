@@ -79,7 +79,7 @@ export default class Index extends Component {
           <View className="left_list">
             {
               leftArr.map(e => (
-                <ShopItem data={e}></ShopItem>
+                <ShopItem key={e.itemId} data={e}></ShopItem>
               ))
             }
           </View>
@@ -88,7 +88,7 @@ export default class Index extends Component {
           <View className="right_list">
             {
               rightArr.map(e => (
-                <ShopItem data={e}></ShopItem>
+                <ShopItem key={e.itemId} data={e}></ShopItem>
               ))
             }
           </View>

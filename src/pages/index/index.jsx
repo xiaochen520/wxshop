@@ -1,11 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { View, Swiper, SwiperItem, ScrollView, Text } from '@tarojs/components'
 import './index.scss'
 
 import api from "@/api";
 
 import WaterFall from "@/components/common/water-fall"
 import Loading from "@/components/common/loading"
+import LoadTip from "@/components/common/load-tip"
 
 export default class Index extends Component {
 
@@ -46,6 +47,9 @@ export default class Index extends Component {
       topicArr = recommends.data.rows;
       this.page++;
       this.setState({ bannerArr, topicArr, hotCateArr, showLoading: false });
+      if(topicArr.length < this.pageSize) {
+        this.hasMore = false;
+      }
     }).catch(err => {
       console.log(err);
     });
@@ -89,7 +93,7 @@ export default class Index extends Component {
             {
               bannerArr.map(e => {
                 return (
-                  <SwiperItem>
+                  <SwiperItem key={e.id}>
                     <Image onClick={this.goPage.bind(this, "/pages/good-detail/index?id=" + e.targetId)} className='s_img' mode='widthFix' src={e.imageUrl} />
                   </SwiperItem>
                 )
@@ -131,11 +135,15 @@ export default class Index extends Component {
 
           <View className='topic topic2'>
             <View className='t_title_outer'>
-              <View className='t_title'>为你推荐</View>
+              <Text className='t_title'>为你推荐</Text>
+              <Text className="t_title_sub">Recommend</Text>
             </View>
             <View className='t2_list flex_list'>
               <WaterFall gutter="15" list={topicArr}></WaterFall>
             </View>
+            {
+              !this.hasMore && <LoadTip></LoadTip>
+            }
           </View>
         </ScrollView>
       )

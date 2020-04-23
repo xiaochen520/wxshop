@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import './index.scss'
-
 import api from "@/api"
 
 export default class Index extends Component {
@@ -30,6 +29,11 @@ export default class Index extends Component {
   //获取分类
   getCategory(id) {
     let { categoryArr, categoryId, subCategoryArr, cateLogo } = this.state;
+
+    if(id !== 0) {
+      this.setState({subCategoryArr: []});
+    }
+
     Taro.$http.get(api.catgorys + id).then(res => {
       if (res.code === 200) {
         if(id === 0) {
@@ -95,7 +99,7 @@ export default class Index extends Component {
           <ScrollView scrollY class="cate_r flex_1">
             {
               cateLogo && (
-                <Image className='cr_top_img' mode='widthFix' src={cateLogo} />
+                <Image className='cr_top_img' mode='aspectFit' src={cateLogo} />
               )
             }
             <View className='cr_top_title tc'>

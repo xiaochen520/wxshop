@@ -37,8 +37,8 @@ page {
           position: relative;
           text-align: center;
           line-height: 1.5;
-          color: #444;
-          font-size: 26px;
+          color: $c3;
+          font-size: 30px;
           transition: all .15s linear;
           &.active {
             color: $theme_color;
@@ -54,6 +54,7 @@ page {
       padding: $gap20;
       .cr_top_img {
         width: 100%;
+        height: 200px;
       }
       .cr_top_title {
         padding: 50px 0;
@@ -68,12 +69,12 @@ page {
           width: 33.3333%;
           padding: 30px 0;
           .cr_icon {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
           }
 
           .cr_name {
-            font-size: $f20;
+            font-size: 26px;
             color: $c3;
             margin-top: 10px;
           }

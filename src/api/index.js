@@ -19,6 +19,7 @@ export default {
 
     //商品
     goodInfo: "/items/info/",
+    searchGood: "/items/es-search", //搜索
 
     //购物车
     shopCar: "/shopcart/get",
