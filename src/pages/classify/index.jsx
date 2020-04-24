@@ -88,8 +88,8 @@ export default class Index extends Component {
                 categoryArr.map(e => {
                   let categoryClass = e.id === categoryId ? "cl_item active" : "cl_item";
                   return (
-                    <View key={e.id} className='cl_item_box'>
-                      <View onClick={this.clickCategory.bind(this, e)} class={categoryClass}>{e.name}</View>
+                    <View onClick={this.clickCategory.bind(this, e)} key={e.id} className='cl_item_box'>
+                      <View class={categoryClass}>{e.name}</View>
                     </View>
                   )
                 })

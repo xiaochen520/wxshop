@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8147361",
+      "name": "delete2",
+      "font_class": "delete",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "13630387",
+      "name": "详细地址",
+      "font_class": "xiangxidizhi1",
+      "unicode": "e707",
+      "unicode_decimal": 59143
+    },
+    {
       "icon_id": "905218",
       "name": "line",
       "font_class": "xiaotiao",

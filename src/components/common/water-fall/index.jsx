@@ -10,6 +10,7 @@ export default class Index extends Component {
     list: []
   }
   state = {
+    currentList: [], //当前渲染的数组
     leftArr: [],
     rightArr: [],
     leftHeight: 0,
@@ -17,8 +18,10 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    if(this.props.list.length) {
-      this.calcHeight();
+    if (this.props.list.length) {
+      this.setState({ currentList: this.props.list }, () => {
+        this.calcHeight();
+      });
     }
   }
 
@@ -26,22 +29,50 @@ export default class Index extends Component {
 
   componentDidHide() { }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(prevProps.list !== this.props.list) {
-      this.calcHeight();
+  componentDidUpdate(prevProps) {
+    let { list } = this.props;
+    let { leftArr, rightArr, currentList } = this.state;
+
+    if (!prevProps.list.length) {
+      //第一次渲染为空
+      this.setState({ currentList: list }, () => {
+        this.calcHeight();
+      });
+    } else {
+      // 第n次渲染
+      if (!list.length || (list.length < (leftArr.length + rightArr.length))) {
+        // 重新渲染
+        this.setState({ leftArr: [], rightArr: [], leftHeight: 0, rightHeight: 0 });
+        this.setState({ currentList: list }, () => {
+          this.calcHeight();
+        });
+      } else {
+        // 连续渲染
+        if (prevProps.list !== list) {
+          let arr = [];
+          list.forEach(e => {
+            let item = [...leftArr, ...rightArr].find(son => son.itemId === e.itemId);
+            if(!item) {
+              arr.push(e);
+            }
+          });
+          this.setState({ currentList: arr }, () => {
+            this.calcHeight();
+          });
+        }
+      }
     }
   }
 
   async calcHeight() {
-    let { list } = this.props;
-    let { leftArr, rightArr } = this.state;
+    let { leftArr, rightArr, currentList } = this.state;
     let query = Taro.createSelectorQuery().in(this.$scope);
 
-    for (let i = 0; i < list.length; i++) {
+    for (let i = 0; i < currentList.length; i++) {
       if (this.state.leftHeight <= this.state.rightHeight) {
-        leftArr.push(list[i]);
+        leftArr.push(currentList[i]);
       } else {
-        rightArr.push(list[i]);
+        rightArr.push(currentList[i]);
       }
 
       await this.getBoxHeight(query, leftArr, rightArr);

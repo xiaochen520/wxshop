@@ -57,6 +57,7 @@ export default class Index extends Component {
 
   //下拉获取热门商品
   getRecommends = () => {
+    let { topicArr } = this.state;
     if(!this.hasMore) {
       return;
     }
@@ -67,7 +68,7 @@ export default class Index extends Component {
           this.hasMore = false;
         }
         this.setState({
-          topicArr: res.data.rows
+          topicArr: [...res.data.rows, ...topicArr]
         });
       }
     });
