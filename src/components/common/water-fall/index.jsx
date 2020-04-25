@@ -12,10 +12,11 @@ export default class Index extends Component {
   state = {
     currentList: [], //当前渲染的数组
     leftArr: [],
-    rightArr: [],
-    leftHeight: 0,
-    rightHeight: 0
+    rightArr: []
   }
+
+  leftHeight = 0;
+  rightHeight = 0;
 
   componentDidMount() {
     if (this.props.list.length) {
@@ -30,8 +31,11 @@ export default class Index extends Component {
   componentDidHide() { }
 
   componentDidUpdate(prevProps) {
+    
     let { list } = this.props;
     let { leftArr, rightArr, currentList } = this.state;
+
+    if(prevProps.list === list) return;
 
     if (!prevProps.list.length) {
       //第一次渲染为空
@@ -42,7 +46,9 @@ export default class Index extends Component {
       // 第n次渲染
       if (!list.length || (list.length < (leftArr.length + rightArr.length))) {
         // 重新渲染
-        this.setState({ leftArr: [], rightArr: [], leftHeight: 0, rightHeight: 0 });
+        this.setState({ leftArr: [], rightArr: [] });
+        this.leftHeight = 0;
+        this.rightHeight = 0;
         this.setState({ currentList: list }, () => {
           this.calcHeight();
         });
@@ -69,28 +75,24 @@ export default class Index extends Component {
     let query = Taro.createSelectorQuery().in(this.$scope);
 
     for (let i = 0; i < currentList.length; i++) {
-      if (this.state.leftHeight <= this.state.rightHeight) {
+      if (this.leftHeight <= this.rightHeight) {
         leftArr.push(currentList[i]);
       } else {
         rightArr.push(currentList[i]);
       }
-
       await this.getBoxHeight(query, leftArr, rightArr);
     }
   }
 
   getBoxHeight(query, leftArr, rightArr) {
-    let { leftHeight, rightHeight } = this.state;
     return new Promise((resolve, reject) => {
       this.setState({ leftArr, rightArr }, () => {
         query.select('.left_list').boundingClientRect();
         query.select('.right_list').boundingClientRect();
         query.exec((res) => {
-          leftHeight = res[0].height;
-          rightHeight = res[1].height;
-          this.setState({ leftHeight, rightHeight }, () => {
-            resolve();
-          })
+          this.leftHeight = res[0].height;
+          this.rightHeight = res[1].height;
+          resolve();
         });
       });
     });
