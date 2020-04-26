@@ -60,6 +60,7 @@ class Index extends Component {
       if (res.confirm) {
         Taro.removeStorageSync("token");
         Taro.removeStorageSync("userInfo");
+        Taro.removeStorageSync("address");
         this.props.setToken("");
         this.props.setUser(null);
       }

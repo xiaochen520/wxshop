@@ -20,11 +20,15 @@ export default {
     //商品
     goodInfo: "/items/info/",
     searchGood: "/items/search", //搜索
+    goodComments: "/items/comments", //评论
 
     //购物车
     shopCar: "/shopcart/get",
     addShopCar: "/shopcart/add",
+    delShopCar: "/shopcart/del", //删除购物车
 
     //订单
     createOrder: "/orders/create",
+    myOrders: "/orders/myOrders", //订单列表
+
 }

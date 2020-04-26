@@ -1,14 +1,20 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { View, Swiper, SwiperItem, ScrollView, Icon } from '@tarojs/components'
+
+import './index.scss'
+import api from "@/api"
+
 import TabBar from "@/components/common/tab-bar"
 import OrderItem from "@/components/order/order-item"
-import './index.scss'
 
 export default class Index extends Component {
 
   state = {
 
   }
+
+  page = 1;
+  pageSize = 10;
 
   tabList = [
     {
@@ -29,7 +35,7 @@ export default class Index extends Component {
   ]
 
   componentDidMount() {
-
+    this.getOrder();
   }
 
   componentWillUnmount() { }
@@ -40,6 +46,21 @@ export default class Index extends Component {
 
   tabBarClick(item) {
     console.log(item)
+  }
+
+  // 获取订单
+  getOrder() {
+    let parms = {
+      orderStatus: 1,
+      page: this.page,
+      pageSize: this.pageSize
+    }
+
+    Taro.$http.post(api.myOrders, parms).then(res => {
+      if(res.code === 200) {
+
+      }
+    });
   }
 
   render() {

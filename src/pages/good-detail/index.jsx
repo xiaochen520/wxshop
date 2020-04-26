@@ -33,6 +33,7 @@ export default class Index extends Component {
 
   componentDidMount() {
     this.getGoodInfo();
+    this.getComment();
   }
 
   componentWillUnmount() { }
@@ -40,6 +41,22 @@ export default class Index extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
+
+  // 获取评论
+  getComment() {
+    let parms = {
+      itemId: this.$router.params.id,
+      level: 0,
+      page: 1,
+      pageSize: 10
+    }
+
+    Taro.$http.get(api.goodComments, parms).then(rse => {
+      if(res.code === 200) {
+
+      }
+    });
+  }
 
   //获取详情
   getGoodInfo() {

@@ -85,7 +85,7 @@ export default class Index extends Component {
             </View>
           ))
         }
-        <View className="foot_btn" onClick={this.goAddressAdd}>添加地址</View>
+        <View className="foot_btn" onClick={this.goAddressAdd}>+添加地址</View>
       </View>
     )
   }

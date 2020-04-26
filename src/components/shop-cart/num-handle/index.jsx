@@ -15,7 +15,7 @@ export default class Index extends Component {
   }
 
   static defaultProps = {
-    theme: '#5482F5',
+    theme: '#B62220',
     count: 0
   }
 

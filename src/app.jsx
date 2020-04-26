@@ -74,7 +74,7 @@ class App extends Component {
     },
     "tabBar": {
       "color": "#999",
-      "selectedColor": "#5482F5",
+      "selectedColor": "#B62220",
       "backgroundColor": "#fff",
       "borderStyle": "black",
       "list": [

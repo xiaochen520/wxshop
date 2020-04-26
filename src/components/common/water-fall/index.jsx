@@ -31,11 +31,11 @@ export default class Index extends Component {
   componentDidHide() { }
 
   componentDidUpdate(prevProps) {
-    
+
     let { list } = this.props;
     let { leftArr, rightArr, currentList } = this.state;
 
-    if(prevProps.list === list) return;
+    if (prevProps.list === list) return;
 
     if (!prevProps.list.length) {
       //第一次渲染为空
@@ -54,18 +54,16 @@ export default class Index extends Component {
         });
       } else {
         // 连续渲染
-        if (prevProps.list !== list) {
-          let arr = [];
-          list.forEach(e => {
-            let item = [...leftArr, ...rightArr].find(son => son.itemId === e.itemId);
-            if(!item) {
-              arr.push(e);
-            }
-          });
-          this.setState({ currentList: arr }, () => {
-            this.calcHeight();
-          });
-        }
+        let arr = [];
+        list.forEach(e => {
+          let item = [...leftArr, ...rightArr].find(son => son.itemId === e.itemId);
+          if (!item) {
+            arr.push(e);
+          }
+        });
+        this.setState({ currentList: arr }, () => {
+          this.calcHeight();
+        });
       }
     }
   }
