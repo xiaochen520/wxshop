@@ -1,11 +1,19 @@
 page {
   background: $bg_color_gray;
 }
+
 .addr {
-  padding: 30px 30px 90px;
-  .addr_inner {
-    margin-bottom: 30px;
+  padding-bottom: 90px;
+
+  .addr_list {
+    .addr_inner {
+      border-bottom: 2px solid #E5E5E5;
+      &:last-child {
+        border-color: transparent;
+      }
+    }
   }
+
   .foot_btn {
     position: fixed;
     bottom: 0;

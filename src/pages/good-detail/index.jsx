@@ -3,7 +3,7 @@ import { View, Image, Swiper, SwiperItem, Text } from '@tarojs/components'
 import './index.scss'
 import GoodModal from '@/components/good-detail/good-modal';
 import Loading from "@/components/common/loading"
-import { addCar } from "@/store/actions"
+import { addCar, setOrder } from "@/store/actions"
 import { connect } from '@tarojs/redux'
 
 import api from "@/api"
@@ -13,6 +13,9 @@ import api from "@/api"
 }), (dispatch) => ({
   addCar(data) {
     dispatch(addCar(data))
+  },
+  setOrder(data) {
+    dispatch(setOrder(data))
   }
 }))
 
@@ -29,6 +32,8 @@ export default class Index extends Component {
     shopInfo: null,
     shopSpecArr: [],
     goodModalType: 1, // 0购物车  1购买
+    commentArr: [],
+    commentCount: 0, //评论数
   }
 
   componentDidMount() {
@@ -44,6 +49,7 @@ export default class Index extends Component {
 
   // 获取评论
   getComment() {
+    let { commentArr, commentCount } = this.state;
     let parms = {
       itemId: this.$router.params.id,
       level: 0,
@@ -51,10 +57,13 @@ export default class Index extends Component {
       pageSize: 10
     }
 
-    Taro.$http.get(api.goodComments, parms).then(rse => {
-      if(res.code === 200) {
-
+    Taro.$http.get(api.goodComments, parms).then(res => {
+      if (res.code === 200) {
+        commentArr = res.data.rows;
+        commentCount = res.data.total;
       }
+
+      this.setState({ commentArr, commentCount });
     });
   }
 
@@ -79,12 +88,21 @@ export default class Index extends Component {
 
   //确认商品
   confirmShop(parms) {
-    let { goodModalType } = this.state;
+    let { goodModalType, shopSpecArr, shopInfo } = this.state;
     if (goodModalType) {
+      // 直接购买
+      let shopItem = Object.assign({}, parms.spec, {
+        buyCounts: parms.buyCounts,
+        itemId: shopInfo.itemId,
+        itemImgUrl: shopInfo.imgUrl,
+        itemName: shopInfo.itemName,
+        specId: parms.spec.id
+      });
+      this.props.setOrder([shopItem]);
       Taro.$util.gotoPage("/pages/confirm-order/index");
     } else {
       //购物车
-      Taro.$http.post(api.addShopCar, parms).then(res => {
+      Taro.$http.post(api.addShopCar, {specId: parms.spec.id}).then(res => {
 
         if (res.code === 200) {
           this.updateShopCar();
@@ -101,8 +119,8 @@ export default class Index extends Component {
   updateShopCar() {
     let { addCar } = this.props;
     Taro.$http.get(api.shopCar).then(res => {
-      if(res.code === 200 && res.data.length) {
-        res.data.forEach(e => {e.select = false});
+      if (res.code === 200 && res.data.length) {
+        res.data.forEach(e => { e.select = false });
         addCar(res.data);
       }
     });
@@ -129,7 +147,7 @@ export default class Index extends Component {
   }
 
   render() {
-    let { isShowGoodModal, bannerArr, shopInfo, showLoading, shopSpecArr, goodModalType } = this.state;
+    let { isShowGoodModal, bannerArr, shopInfo, showLoading, shopSpecArr, goodModalType, commentCount } = this.state;
 
     let content = showLoading ? (
       < Loading />
@@ -206,26 +224,30 @@ export default class Index extends Component {
           </View>
 
           {/* 商品评价 */}
-          {/* <View className='good_eval'>
-            <View className='ge_head flex flex_v_c'>
-              <View className='flex_1'>用户评价（25万+）</View>
-              <View>查看全部</View>
-              <View className='iconfont iconarrow-down'></View>
-            </View>
-            <View className='ge_item'>
-              <View className='flex flex_v_c'>
-                <Image mode='aspectFill' src='http://img1.imgtn.bdimg.com/it/u=2034740944,4251903193&fm=26&gp=0.jpg' className='ge_i_photo'></Image>
-                <View className='ge_i_name'>陈佳迪</View>
+          {
+            commentCount > 0 ? (
+              <View className='good_eval'>
+                <View className='ge_head flex flex_v_c'>
+                  <View className='flex_1'>用户评价（25万+）</View>
+                  <View>查看全部</View>
+                  <View className='iconfont iconarrow-down'></View>
+                </View>
+                <View className='ge_item'>
+                  <View className='flex flex_v_c'>
+                    <Image mode='aspectFill' src='http://img1.imgtn.bdimg.com/it/u=2034740944,4251903193&fm=26&gp=0.jpg' className='ge_i_photo'></Image>
+                    <View className='ge_i_name'>陈佳迪</View>
+                  </View>
+                  <View className='ge_i_desc'>尊贵奢华，是我此生不换的产品~</View>
+                  <View className='ge_i_time'>2020-01-15 22:59:59 陈佳迪</View>
+                </View>
               </View>
-              <View className='ge_i_desc'>尊贵奢华，是我此生不换的产品~</View>
-              <View className='ge_i_time'>2020-01-15 22:59:59 陈佳迪</View>
-            </View>
-          </View> */}
+            ) : null
+          }
+
 
           {/* 商品描述 */}
           <View className='good_info'>
             <View className='gi_head'>商品详情</View>
-
             <RichText nodes={shopInfo.content} />
           </View>
 
@@ -241,7 +263,7 @@ export default class Index extends Component {
             </View>
             <View className="flex car_btn">
               <View onClick={this.showGoodModal.bind(this, 0)} className="flex_1 car_btn_item car_btn_car">加入购物车</View>
-              <View className="flex_1 car_btn_item">立即购买</View>
+              <View onClick={this.showGoodModal.bind(this)} className="flex_1 car_btn_item">立即购买</View>
             </View>
           </View>
 

@@ -10,11 +10,12 @@ import OrderItem from "@/components/order/order-item"
 export default class Index extends Component {
 
   state = {
-
+    orderArr: []
   }
 
   page = 1;
   pageSize = 10;
+  hasMore = true;
 
   tabList = [
     {
@@ -49,22 +50,30 @@ export default class Index extends Component {
   }
 
   // 获取订单
-  getOrder() {
+  getOrder = () => {
+    let { orderArr } = this.state;
+
+    if (!this.hasMore) return;
     let parms = {
-      orderStatus: 1,
+      orderStatus: 50,
       page: this.page,
       pageSize: this.pageSize
     }
 
-    Taro.$http.post(api.myOrders, parms).then(res => {
-      if(res.code === 200) {
-
+    Taro.$http.get(api.myOrders, parms).then(res => {
+      if (res.code === 200) {
+        orderArr = [...orderArr, ...res.data.rows];
+        this.setState({ orderArr });
+        this.page++;
+        if (res.data.rows < this.pageSize) {
+          this.hasMore = false;
+        }
       }
     });
   }
 
   render() {
-
+    let { orderArr } = this.state;
     return (
       <View className='order flex flex_v'>
         <View>
@@ -72,17 +81,14 @@ export default class Index extends Component {
         </View>
 
         <View className="flex_1 order_outer">
-          <ScrollView className="order_list">
-            <View className="oi_outer">
-              <OrderItem></OrderItem>
-            </View>
-
-            <View className="oi_outer">
-              <OrderItem></OrderItem>
-            </View>
-            <View className="oi_outer">
-              <OrderItem></OrderItem>
-            </View>
+          <ScrollView onScrollToLower={this.getOrder} scrollY lowerThreshold={50} className="order_list">
+            {
+              orderArr.map(e => (
+                <View className="oi_outer">
+                  <OrderItem data={e}></OrderItem>
+                </View>
+              ))
+            }
           </ScrollView>
         </View>
       </View>

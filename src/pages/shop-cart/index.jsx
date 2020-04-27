@@ -80,7 +80,7 @@ export default class Index extends Component {
       itemSpecIds: selectGoodArr.map(e => e.specId).join()
     }
 
-    Taro.$http.post(api.delShopCar, parms).then(res => {
+    Taro.$http.get(api.delShopCar, parms).then(res => {
       Taro.hideLoading()
       if(res.code === 200) {
         let arr = [];

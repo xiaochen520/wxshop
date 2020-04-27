@@ -61,16 +61,16 @@ export default class Index extends Component {
   // 删除地址
   deleteAddr(item, index) {
     let { addrArr } = this.state;
-    Taro.$http.get(api.deleteAddr, {addressId: item.id}).then(res => {
-      
-      if(res.code === 200) {
+    Taro.$http.get(api.deleteAddr, { addressId: item.id }).then(res => {
+
+      if (res.code === 200) {
         Taro.showToast({
           title: "删除成功",
           icon: "none"
         })
         addrArr.splice(index, 1);
       }
-      this.setState({addrArr});
+      this.setState({ addrArr });
     });
   }
 
@@ -78,13 +78,16 @@ export default class Index extends Component {
     let { addrArr } = this.state;
     return (
       <View className='addr'>
-        {
-          addrArr.map((e, i) => (
-            <View key={e.id} className="addr_inner">
-              <AddrItem onDelete={this.deleteAddr.bind(this, e, i)} onSetDefault={this.setDefaule.bind(this, e, i)} data={e}></AddrItem>
-            </View>
-          ))
-        }
+        <View className="addr_list">
+          {
+            addrArr.map((e, i) => (
+              <View key={e.id} className="addr_inner">
+                <AddrItem onDelete={this.deleteAddr.bind(this, e, i)} onSetDefault={this.setDefaule.bind(this, e, i)} data={e}></AddrItem>
+              </View>
+            ))
+          }
+        </View>
+
         <View className="foot_btn" onClick={this.goAddressAdd}>+添加地址</View>
       </View>
     )

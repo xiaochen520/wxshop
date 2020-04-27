@@ -27,20 +27,18 @@ export default class Index extends Component {
     let { data, onSetDefault, onDelete } = this.props;
     return (
       <View className='addr'>
-        <Text onClick={ onDelete } className="close iconfont iconsearchclose-"></Text>
+        
+        <View className="addr_desc flex_middle">
+          <View className="flex_1">{data.province + data.city + data.district + data.detail}</View>
+          <Text onClick={ onDelete } className="close iconfont iconsearchclose-"></Text>
+        </View>
         <View className="addr_head">
           <Text className="name">
-            {data.receiver}
+            {data.receiver + " " + data.mobile}
           </Text>
-          <Text>
-            {data.mobile}
-          </Text>
-        </View>
-        <View className="addr_desc b">
-          {data.province + data.city + data.district + data.detail}
         </View>
         <View className="addr_foot flex_middle">
-          <View onClick={ onSetDefault } className="flex_1 a_f_left">
+          <View onClick={ onSetDefault } className="flex_1 flex_middle a_f_left">
             <Text className={data.isDefault === 1 ? "iconfont iconpass_Flat_icons" : "iconfont iconpass_Line_icons"}></Text>
             <Text>设为默认</Text>
           </View>

@@ -263,7 +263,7 @@ class Index extends Component {
                             value={addressInfo.receiver}
                             onInput={this.inputChange.bind(this, "receiver")}
                         />
-                        <View className="iconfont iconziyuan"></View>
+                        {/* <View className="iconfont iconziyuan"></View> */}
                     </View>
                     <View className="address_info_options flex_middle hairline-bottom">
                         <View className="iconfont iconziyuan1"></View>

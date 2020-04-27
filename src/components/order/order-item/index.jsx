@@ -16,11 +16,11 @@ export default class Index extends Component {
   componentDidHide() { }
 
   render() {
-
+    let { data } = this.props;
     return (
       <View className='order_item'>
         <View className="o_head flex_middle">
-          <View className="oh_num flex_1">订单编号： 15465415415615</View>
+    <View className="oh_num flex_1">订单编号： {data.orderId}</View>
           <View className="oh_status">待发货</View>
         </View>
         <View className="o_content flex_middle">

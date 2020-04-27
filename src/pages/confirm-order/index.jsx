@@ -4,6 +4,9 @@ import './index.scss'
 import { connect } from '@tarojs/redux'
 import api from "@/api";
 
+import flowerLine from "@/imgs/order/flower-line.png"
+import userIcon from "@/imgs/user"
+
 @connect(({ shopCar }) => ({
     shopCar
 }))
@@ -19,6 +22,7 @@ class Index extends Component {
     // onShow
     componentDidShow() {
         this.getAddr();
+        this.calcMoney();
     }
     // onUnload
     componentWillUnmount() {
@@ -33,8 +37,8 @@ class Index extends Component {
         shopArr.forEach(e => {
             money += e.buyCounts * e.priceDiscount;
         })
-        
-        this.setState({totalMoney: money});
+
+        this.setState({ totalMoney: money });
     }
 
     //取地址
@@ -73,12 +77,22 @@ class Index extends Component {
         }
 
         Taro.$http.post(api.createOrder, parms).then(res => {
-            console.log(res);
-            if(res.code === 200) {
-
+            if (res.code === 200) {
+                this.wxPay(res.data);
             }
         }).catch(err => {
+            console.log(err);
+        });
+    }
 
+    // 微信支付
+    wxPay(id) {
+        let parms = {
+            orderId: id
+        }
+
+        Taro.$http.post(api.wxPay, parms).then(res => {
+            
         });
     }
 
@@ -90,30 +104,39 @@ class Index extends Component {
                 <View className="addr_info">
                     {
                         addrInfo ? (
-                            <View>
-                                <View>
-                                    {addrInfo.receiver + " " + addrInfo.mobile}</View>
-                                <View>
-                                    <View>{addrInfo.province + addrInfo.city + addrInfo.district + addrInfo.detail}</View>
-                                    <View className="iconfont iconarrow-down"></View>
+                            <View className="addr_outer flex_middle">
+                                <Image scaleToFill className="addr_icon" src={userIcon.addr}></Image>
+                                <View className="flex_1">
+                                    <View className="receiver_info">
+                                        {addrInfo.receiver + " " + addrInfo.mobile}</View>
+                                    <View className="addr_detail">
+                                        <View>{addrInfo.province + addrInfo.city + addrInfo.district + addrInfo.detail}</View>
+                                    </View>
                                 </View>
+                                <View className="iconfont iconarrow-down"></View>
                             </View>
                         ) : (
                                 <View>选择地址</View>
                             )
                     }
+                    <Image style="width: 100%" src={flowerLine} mode="widthFix"></Image>
                 </View>
                 <View className="shop_info">
                     {
                         shopCar.confirmOrderArr.map(e => (
-                            <View className="s_item">
-                                <Image src={e.itemImgUrl}></Image>
-                                <View>
-                                    <View>
+                            <View className="s_item flex_middle">
+                                <Image className="s_img" aspectFill src={e.itemImgUrl}></Image>
+                                <View className="flex_1">
+                                    <View className="si_name b">
                                         {e.itemName}
                                     </View>
-                                    <View>￥
-                                        {e.priceDiscount}
+                                    <View className="si_rule">{e.specName}</View>
+                                    <View className="flex_middle">
+                                        <View className="si_price flex_1">
+                                            <Text>￥</Text>
+                                            <Text className="s b">{e.priceDiscount}</Text>
+                                        </View>
+                                        <View className="si_count">X{e.buyCounts}</View>
                                     </View>
                                 </View>
                             </View>
@@ -121,13 +144,17 @@ class Index extends Component {
                     }
                 </View>
 
+                <View className="money">
+                    <View className="money_item flex_middle">
+                        <View className="flex_1 m_label">商品金额</View>
+                        <View className="m_total">￥{totalMoney}</View>
+                    </View>
+                </View>
+
                 <View className="foot_bar flex_middle">
-                    <View className="flex_1">
-                        <View>共4件</View>
-                        <View>
-                            <View>合计：</View>
-                            <View>{totalMoney}元</View>
-                        </View>
+                    <View className="flex_1 fb_static">
+                        <Text>合计：</Text>
+                        <Text className="s b">{totalMoney}元</Text>
                     </View>
                     <Button onClick={this.confirmOrder} className="save_btn">提交订单</Button>
                 </View>

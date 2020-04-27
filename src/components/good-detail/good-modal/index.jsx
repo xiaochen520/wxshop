@@ -56,7 +56,7 @@ export default class Index extends Component {
 
     let parms = {
       buyCounts: count,
-      specId: currentItem.id
+      spec: currentItem
     }
 
     this.props.onConfirm(parms);
