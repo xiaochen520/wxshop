@@ -102,7 +102,7 @@ export default class Index extends Component {
       Taro.$util.gotoPage("/pages/confirm-order/index");
     } else {
       //购物车
-      Taro.$http.post(api.addShopCar, {specId: parms.spec.id}).then(res => {
+      Taro.$http.post(api.addShopCar, {specId: parms.spec.id, buyCounts: parms.buyCounts}).then(res => {
 
         if (res.code === 200) {
           this.updateShopCar();

@@ -89,6 +89,12 @@ export default class Index extends Component {
                 </View>
               ))
             }
+            <View className="oi_outer">
+                  <OrderItem></OrderItem>
+                </View>
+                <View className="oi_outer">
+                  <OrderItem></OrderItem>
+                </View>
           </ScrollView>
         </View>
       </View>

@@ -30,6 +30,6 @@ export default {
     //订单
     createOrder: "/orders/create",
     myOrders: "/orders/myOrders", //订单列表
-    wxPay: "/payment/getWXPayQRCode", //获取微信支付参数
+    wxPay: "/payment/getMiniProgramWXPay", //获取微信支付参数
 
 }

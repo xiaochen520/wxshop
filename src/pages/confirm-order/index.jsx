@@ -91,8 +91,25 @@ class Index extends Component {
             orderId: id
         }
 
-        Taro.$http.post(api.wxPay, parms).then(res => {
-            
+        Taro.$http.get(api.wxPay, parms).then(res => {
+            if (res.code === 200) {
+                let { timeStamp, nonceStr, signType, packageStr, sign } = res.data;
+
+                let parms = {
+                    timeStamp, nonceStr, signType,
+                    package: packageStr,
+                    paySign: sign,
+                    success: res => {
+                        console.log(res);
+                    },
+                    fail: err => {
+                        console.log(err);
+                    }
+                }
+                console.log(parms)
+
+                wx.requestPayment(parms);
+            }
         });
     }
 
