@@ -80,8 +80,9 @@ export default class Index extends Component {
           <TabBar onChange={this.tabBarClick.bind(this)} current={this.$router.params.type} list={this.tabList}></TabBar>
         </View>
 
-        <View className="flex_1 order_outer">
+        <View className="flex_1 flex order_outer">
           <ScrollView onScrollToLower={this.getOrder} scrollY lowerThreshold={50} className="order_list">
+            <View className="order_inner">
             {
               orderArr.map(e => (
                 <View className="oi_outer">
@@ -89,12 +90,7 @@ export default class Index extends Component {
                 </View>
               ))
             }
-            <View className="oi_outer">
-                  <OrderItem></OrderItem>
-                </View>
-                <View className="oi_outer">
-                  <OrderItem></OrderItem>
-                </View>
+            </View>
           </ScrollView>
         </View>
       </View>

@@ -1,13 +1,19 @@
+page {
+  height: 100%;
+  overflow: hidden;
+}
+
 .order {
   height: 100%;
-  // overflow: hidden;
   .order_outer {
     width: 100%;
     .order_list {
       background: #f3f3f3;
-      padding: 30px;
       box-sizing: border-box;
       height: 100%;
+      .order_inner {
+        padding: 30px;
+      }
       .oi_outer {
         margin-bottom: 30px;
       }

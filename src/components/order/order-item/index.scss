@@ -17,7 +17,8 @@
     position: relative;
 
     .oh_num {
-      color: #999;
+      color: $c6;
+      font-size: 26px;
     }
 
     .oh_status {
@@ -35,19 +36,36 @@
 
     .oc_pic {
       margin-right: 40px;
-      width: 140px;
-      height: 140px;
+      width: 160px;
+      height: 160px;
       border-radius: 4px;
     }
 
     .oc_aside {
       .oc_name {
         color: #333;
+        font-size: 28px;
         margin-bottom: 20px;
+        margin-bottom: 18px;
       }
 
       .oc_desc {
         color: #999;
+        font-size: 22px;
+        margin-bottom: 30px;
+      }
+      .oc_price {
+        .oc_money {
+          color: #DE2721;
+          font-size: 20px;
+        }
+        .oc_count {
+          color: $c9;
+          font-size: 22px;
+        }
+        .s {
+          font-size: 28px;
+        }
       }
     }
   }
@@ -55,10 +73,11 @@
   .o_foot {
     color: #333;
     position: relative;
-    padding: 20px 30px;
+    height: 100px;
+    padding: 0 30px;
+    font-size: 26px;
     .of_pay {
-      color: $theme_color;
-      font-size: 30px;
+      color: #BE2723;
       font-weight: 700;
       margin-left: 10px;
     }
