@@ -56,6 +56,7 @@ class App extends Component {
       "pages/good-detail/index", //商品详情
       "pages/search/index", //搜索页
       "pages/order/index", //订单列表
+      "pages/order-detail/index", //订单详情
       "pages/shop-list/index", //商品列表
       "pages/coupon/index", //优惠券
       "pages/address/index", //地址管理

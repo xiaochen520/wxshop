@@ -31,5 +31,7 @@ export default {
     createOrder: "/orders/create",
     myOrders: "/orders/myOrders", //订单列表
     wxPay: "/payment/getMiniProgramWXPay", //获取微信支付参数
+    orderInfo: "/orders/orderInfo", //订单详情
+    quickCreate: "/orders/quickCreate", //直接下单
 
 }

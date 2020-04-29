@@ -35,9 +35,19 @@ export default class Index extends Component {
     editMode: false, //编辑模式是否打开
   }
 
-  componentDidMount() {}
+  componentDidShow() {
+    this.initData();
+  }
 
-  componentDidShow() {}
+  // 重置数据
+  initData() {
+    let shopArr = this.props.shopCar.shopCarArr;
+    shopArr.forEach(e => e.select = false);
+    
+    this.props.setOrder([]);
+    this.props.addCar(shopArr);
+    this.setState({selectGoodArr: [], isSelectAll: false, totalMoney: 0});
+  }
 
   // 编辑
   changeEdit = () => {
@@ -68,7 +78,7 @@ export default class Index extends Component {
     } else {
       //去结算
       this.props.setOrder(selectGoodArr);
-      Taro.$util.gotoPage("/pages/confirm-order/index");
+      Taro.$util.gotoPage("/pages/confirm-order/index?type=1");
     }
   }
 

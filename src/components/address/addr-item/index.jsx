@@ -21,12 +21,21 @@ export default class Index extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
+
+  clickDefault = e => {
+    e.stopPropagation();
+    this.onSetDefault();
+  }
+
+  clickAddr = () => {
+    this.props.onAddrTap();
+  }
   
 
   render() {
-    let { data, onSetDefault, onDelete } = this.props;
+    let { data, onDelete } = this.props;
     return (
-      <View className='addr'>
+      <View onClick={this.clickAddr} className='addr'>
         
         <View className="addr_desc flex_middle">
           <View className="flex_1">{data.province + data.city + data.district + data.detail}</View>
@@ -38,7 +47,7 @@ export default class Index extends Component {
           </Text>
         </View>
         <View className="addr_foot flex_middle">
-          <View onClick={ onSetDefault } className="flex_1 flex_middle a_f_left">
+          <View onClick={ this.clickDefault } className="flex_1 flex_middle a_f_left">
             <Text className={data.isDefault === 1 ? "iconfont iconpass_Flat_icons" : "iconfont iconpass_Line_icons"}></Text>
             <Text>设为默认</Text>
           </View>

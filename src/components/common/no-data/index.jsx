@@ -2,7 +2,14 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import './index.scss'
 
+import defaultImg from "@/imgs/common/nodata.png";
+
 export default class Index extends Component {
+
+  static defaultProps = {
+    img: defaultImg,
+    title: "暂无数据"
+  }
 
   componentWillMount() { }
 

@@ -69,6 +69,17 @@
       }
     }
   }
+  .o_content_mul {
+    padding: 30px;
+    .oc_pic {
+      width: 120px;
+      height: 120px;
+      margin-right: 50px;
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
 
   .o_foot {
     color: #333;
@@ -80,6 +91,15 @@
       color: #BE2723;
       font-weight: 700;
       margin-left: 10px;
+    }
+
+    .of_btn {
+      color: #BE2723;
+      font-size: 26px;
+      border: 2px solid #BE2723;
+      border-radius: 8px;
+      padding: 8px 20px;
+      margin-left: 30px;
     }
 
     &:before {

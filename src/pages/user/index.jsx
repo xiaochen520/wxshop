@@ -97,23 +97,23 @@ class Index extends Component {
         <View className='order'>
           <View className="o_head flex_middle">
             <View className="flex_1 b">我的订单</View>
-            <View onClick={this.goPage.bind(this, "/pages/order/index")}>查看更多订单</View>
+            <View onClick={this.goPage.bind(this, "/pages/order/index?status=0")}>查看更多订单</View>
             <View className="iconfont iconarrow-down"></View>
           </View>
           <View className="o_list flex_middle">
-            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=1")}>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?status=10")}>
               <Image className='o_icon' src={icon.unpay} />
               <View className='o_text'>待支付</View>
             </View>
-            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=2")}>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?status=20")}>
               <Image className='o_icon' src={icon.undelivery} />
               <View className='o_text'>待发货</View>
             </View>
-            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=3")}>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?status=30")}>
               <Image className='o_icon' src={icon.unreceive} />
               <View className='o_text'>待收货</View>
             </View>
-            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?type=4")}>
+            <View className='o_item' onClick={this.goPage.bind(this, "/pages/order/index?status=40")}>
               <Image className='o_icon' src={icon.receive} />
               <View className='o_text'>已完成</View>
             </View>
@@ -121,11 +121,11 @@ class Index extends Component {
         </View>
 
         <View className='menu'>
-          <View className='m_item flex flex_v_c' onClick={this.goPage.bind(this, "/pages/coupon/index")}>
+          {/* <View className='m_item flex flex_v_c' onClick={this.goPage.bind(this, "/pages/coupon/index")}>
             <Image className='m_icon' scaleToFill src={icon.coupon} />
             <View className='m_text flex_1'>优惠券</View>
             <Text className="iconfont iconarrow-down" />
-          </View>
+          </View> */}
           <View onClick={this.goPage.bind(this, "/pages/address/index")} className='m_item flex flex_v_c'>
             <Image className='m_icon' scaleToFill src={icon.addr} />
             <View className='m_text flex_1'>收货地址</View>

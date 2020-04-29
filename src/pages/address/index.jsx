@@ -69,9 +69,25 @@ export default class Index extends Component {
           icon: "none"
         })
         addrArr.splice(index, 1);
+        let defaultAddr = Taro.getStorageSync("address");
+        if(defaultAddr.id == item.id) {
+          Taro.removeStorageSync("address");
+        }
       }
       this.setState({ addrArr });
     });
+  }
+
+  // 选择地址
+  selectCurrentAddr(e) {
+    if (!this.$router.params.order) {
+      return;
+    }
+    Taro.setStorage({
+      key: "address",
+      data: e
+    });
+    Taro.navigateBack({ delta: 1 });
   }
 
   render() {
@@ -82,7 +98,7 @@ export default class Index extends Component {
           {
             addrArr.map((e, i) => (
               <View key={e.id} className="addr_inner">
-                <AddrItem onDelete={this.deleteAddr.bind(this, e, i)} onSetDefault={this.setDefaule.bind(this, e, i)} data={e}></AddrItem>
+                <AddrItem onAddrTap={this.selectCurrentAddr.bind(this, e)} onDelete={this.deleteAddr.bind(this, e, i)} onSetDefault={this.setDefaule.bind(this, e, i)} data={e}></AddrItem>
               </View>
             ))
           }

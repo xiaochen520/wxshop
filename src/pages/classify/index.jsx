@@ -94,19 +94,9 @@ export default class Index extends Component {
                   )
                 })
               }
-              {
-                categoryArr.map(e => {
-                  let categoryClass = e.id === categoryId ? "cl_item active" : "cl_item";
-                  return (
-                    <View onClick={this.clickCategory.bind(this, e)} key={e.id} className='cl_item_box'>
-                      <View class={categoryClass}>{e.name}</View>
-                    </View>
-                  )
-                })
-              }
             </View>
           </ScrollView>
-          {/* <ScrollView scrollY class="cate_r flex_1">
+          <ScrollView scrollY class="cate_r flex_1">
             {
               cateLogo && (
                 <Image className='cr_top_img' mode='aspectFit' src={cateLogo} />
@@ -127,7 +117,7 @@ export default class Index extends Component {
                 })
               }
             </View>
-          </ScrollView> */}
+          </ScrollView>
         </View>
       </View>
     )

@@ -16,6 +16,14 @@ export default class Index extends Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.current !== this.props.current) {
+      this.setState({
+        curItem: this.props.list[this.props.current || 0] || null
+      })
+    }
+  }
+
   clickTab(index) {
     let { list } = this.props;
     this.setState({

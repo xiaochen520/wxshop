@@ -99,7 +99,7 @@ export default class Index extends Component {
         specId: parms.spec.id
       });
       this.props.setOrder([shopItem]);
-      Taro.$util.gotoPage("/pages/confirm-order/index");
+      Taro.$util.gotoPage("/pages/confirm-order/index?type=0");
     } else {
       //购物车
       Taro.$http.post(api.addShopCar, {specId: parms.spec.id, buyCounts: parms.buyCounts}).then(res => {

@@ -1,53 +1,42 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Text, Input, Switch, Picker, Textarea, Button } from '@tarojs/components'
+import { View, Image, Text } from '@tarojs/components'
 import './index.scss'
-import { connect } from '@tarojs/redux'
 import api from "@/api";
 
 import flowerLine from "@/imgs/order/flower-line.png"
 import userIcon from "@/imgs/user"
 
-@connect(({ shopCar }) => ({
-    shopCar
-}))
+
 class Index extends Component {
     state = {
-        addrInfo: null,
-        totalMoney: 0
+        orderInfo: null
     }
-
-    orderType = 0;
     // onLoad
-    componentWillMount() {
-
-    }
-    // onShow
-    componentDidShow() {
-        this.orderType = this.$router.params.type;
-        this.getAddr();
-        this.calcMoney();
-    }
-    // onUnload
-    componentWillUnmount() {
-
+    componentDidMount() {
+        this.getOrder();
     }
 
-    //计算总金额
-    calcMoney() {
-        let shopArr = this.props.shopCar.confirmOrderArr;
-        let money = 0;
-
-        shopArr.forEach(e => {
-            money += e.buyCounts * e.priceDiscount;
-        })
-
-        this.setState({ totalMoney: money });
+    getOrder() {
+        let orderInfo = null;
+        Taro.$http.get(api.orderInfo, { orderId: this.$router.params.id }).then(res => {
+            if (res.code === 200) {
+                orderInfo = res.data;
+                this.setState({ orderInfo });
+            }
+        });
     }
 
-    // 去地址列表
-    goAddr() {
-        Taro.$util.gotoPage("/pages/address/index?order=1");
-    }
+    // //计算总金额
+    // calcMoney() {
+    //     let shopArr = this.props.shopCar.confirmOrderArr;
+    //     let money = 0;
+
+    //     shopArr.forEach(e => {
+    //         money += e.buyCounts * e.priceDiscount;
+    //     })
+
+    //     this.setState({ totalMoney: money });
+    // }
 
     //取地址
     getAddr() {
@@ -84,13 +73,7 @@ class Index extends Component {
             payMethod: 1
         }
 
-        if(this.orderType == 0) {
-            parms.buyCounts = shopArr[0] && shopArr[0].buyCounts;
-        }
-
-        let url = this.orderType == 0 ? api.quickCreate : api.createOrder;
-
-        Taro.$http.post(url, parms).then(res => {
+        Taro.$http.post(api.createOrder, parms).then(res => {
             if (res.code === 200) {
                 this.wxPay(res.data);
             }
@@ -128,14 +111,16 @@ class Index extends Component {
     }
 
     render() {
-        let { addrInfo, totalMoney } = this.state;
+        let { totalMoney, orderInfo } = this.state;
         let { shopCar } = this.props;
+
+        if (!orderInfo) return null;
         return (
-            <View className='confirm'>
-                <View className="addr_info">
+            <View className='order'>
+                {/* <View className="addr_info">
                     {
                         addrInfo ? (
-                            <View onClick={this.goAddr} className="addr_outer flex_middle">
+                            <View className="addr_outer flex_middle">
                                 <Image scaleToFill className="addr_icon" src={userIcon.addr}></Image>
                                 <View className="flex_1">
                                     <View className="receiver_info">
@@ -151,6 +136,17 @@ class Index extends Component {
                             )
                     }
                     <Image style="width: 100%" src={flowerLine} mode="widthFix"></Image>
+                </View> */}
+
+                <View className="order_menu">
+                    <View className="order_menu_item flex_middle">
+                        <View className="flex_1">订单编号</View>
+                        <View></View>
+                    </View>
+                    <View className="order_menu_item flex_middle">
+                        <View className="flex_1">下单时间</View>
+                        <View></View>
+                    </View>
                 </View>
                 <View className="shop_info">
                     {
