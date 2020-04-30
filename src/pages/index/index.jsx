@@ -3,11 +3,14 @@ import { View, Swiper, SwiperItem, ScrollView, Text } from '@tarojs/components'
 import './index.scss'
 
 import api from "@/api";
-
+import { connect } from '@tarojs/redux'
 import WaterFall from "@/components/common/water-fall"
 import Loading from "@/components/common/loading"
 import LoadTip from "@/components/common/load-tip"
 
+@connect(({ shopCar }) => ({
+  shopCar
+}))
 export default class Index extends Component {
 
   config = {
@@ -29,7 +32,15 @@ export default class Index extends Component {
     this.getData();
   }
 
-  componentDidShow() { }
+  componentDidShow() { 
+    // 更新购物车数量
+    if(this.props.shopCar.shopCarArr.length) {
+      wx.setTabBarBadge({
+        index: 2,
+        text: this.props.shopCar.shopCarArr.length + ""
+      });
+    }
+  }
 
   componentDidHide() { }
 

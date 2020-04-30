@@ -8,8 +8,8 @@ import { connect } from '@tarojs/redux'
 
 import api from "@/api"
 
-@connect(({ shopCar, user }) => ({
-  shopCar
+@connect(({ user, shopCar }) => ({
+  user, shopCar
 }), (dispatch) => ({
   addCar(data) {
     dispatch(addCar(data))
@@ -88,7 +88,13 @@ export default class Index extends Component {
 
   //确认商品
   confirmShop(parms) {
-    let { goodModalType, shopSpecArr, shopInfo } = this.state;
+    let { goodModalType, shopInfo } = this.state;
+    
+    if(!this.props.user.token) {
+      Taro.$util.gotoPage("/pages/wx-author/index");
+      return;
+    }
+
     if (goodModalType) {
       // 直接购买
       let shopItem = Object.assign({}, parms.spec, {
@@ -124,6 +130,11 @@ export default class Index extends Component {
         addCar(res.data);
       }
     });
+  }
+
+  // 跳转页面
+  goPage(page, type) {
+    Taro.$util.gotoPage(page, type);
   }
 
   // 预览图片
@@ -253,11 +264,11 @@ export default class Index extends Component {
 
           {/* 底部操作栏 */}
           <View className="bottom_bar flex_middle">
-            <View className="aside_m flex_1">
+            <View onClick={this.goPage.bind(this, "/pages/index/index", "switchTab")} className="aside_m flex_1">
               <View className="iconfont iconhome_n"></View>
               <View>首页</View>
             </View>
-            <View className="aside_m flex_1">
+            <View onClick={this.goPage.bind(this, "/pages/shop-cart/index", "switchTab")} className="aside_m flex_1">
               <View className="iconfont iconshop_car"></View>
               <View>购物车</View>
             </View>

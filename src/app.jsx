@@ -62,7 +62,6 @@ class App extends Component {
       "pages/address/index", //地址管理
       "pages/add-address/index", //新增地址
       "pages/wx-author/index", //授权页面
-      "pages/author-login/index", //登录页面
       "pages/about-us/index", //关于我们
       "pages/confirm-order/index", //确认订单
     ],
@@ -142,6 +141,10 @@ class App extends Component {
         store.dispatch({
           type: 'Add_CAR',
           data: res.data
+        });
+        wx.setTabBarBadge({
+          index: 2,
+          text: res.data.length + ""
         });
       }
     });
