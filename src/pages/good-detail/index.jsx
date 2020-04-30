@@ -8,7 +8,7 @@ import { connect } from '@tarojs/redux'
 
 import api from "@/api"
 
-@connect(({ shopCar }) => ({
+@connect(({ shopCar, user }) => ({
   shopCar
 }), (dispatch) => ({
   addCar(data) {

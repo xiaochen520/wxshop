@@ -24,7 +24,7 @@ export default class Index extends Component {
 
   clickDefault = e => {
     e.stopPropagation();
-    this.onSetDefault();
+    this.props.onSetDefault();
   }
 
   clickAddr = () => {
