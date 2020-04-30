@@ -93,8 +93,9 @@ export default class Index extends Component {
   }
 
   clickHistory(e) {
-    this.setState({ searchVal: e, isSearch: true });
-    this.getGoods();
+    this.setState({ searchVal: e, isSearch: true }, () => {
+      this.getGoods();
+    });
   }
 
   render() {
@@ -114,7 +115,7 @@ export default class Index extends Component {
         <View className="result">
           <WaterFall gutter="15" list={goodArr}></WaterFall>
           {
-            !this.hasMore && <LoadTip></LoadTip>
+            (isSearch && !this.hasMore) && <LoadTip></LoadTip>
           }
           
         </View>

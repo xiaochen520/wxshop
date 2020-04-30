@@ -184,7 +184,7 @@ export default class Index extends Component {
           <View className='s_list'>
             {
               shopCar.shopCarArr.map((e, i) => (
-                <View  className='s_item flex flex_v_c'>
+                <View onClick={this.chooseGood.bind(this, i)} className='s_item flex flex_v_c'>
                   <View className={classNames("iconfont", e.select ? "iconpass_Flat_icons" : "iconpass_Line_icons")}></View>
                   <View className='flex flex_1'>
                     <Image className='s_photo' mode='aspectFit' src={e.itemImgUrl} />
