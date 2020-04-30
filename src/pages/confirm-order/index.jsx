@@ -2,13 +2,21 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text, Input, Switch, Picker, Textarea, Button } from '@tarojs/components'
 import './index.scss'
 import { connect } from '@tarojs/redux'
+import { setOrder, addCar } from "@/store/actions"
 import api from "@/api";
 
 import flowerLine from "@/imgs/order/flower-line.png"
-import userIcon from "@/imgs/user"
+import addrIcon from "@/imgs/order/addr-icon.png"
 
 @connect(({ shopCar }) => ({
     shopCar
+}), (dispatch) => ({
+    setOrder(data) {
+        dispatch(setOrder(data))
+    },
+    addCar(data) {
+        dispatch(addCar(data))
+    },
 }))
 class Index extends Component {
     state = {
@@ -77,6 +85,16 @@ class Index extends Component {
     confirmOrder = () => {
         let shopArr = this.props.shopCar.confirmOrderArr;
         let { addrInfo } = this.state;
+        let { shopCar, setOrder, addCar } = this.props;
+
+        if (!addrInfo) {
+            Taro.showToast({
+                title: "请选择收获地址",
+                icon: "none"
+            })
+            return;
+        }
+
         let parms = {
             addressId: addrInfo.id,
             itemSpecIds: shopArr.map(e => e.specId).join(),
@@ -84,7 +102,7 @@ class Index extends Component {
             payMethod: 1
         }
 
-        if(this.orderType == 0) {
+        if (this.orderType == 0) {
             parms.buyCounts = shopArr[0] && shopArr[0].buyCounts;
         }
 
@@ -92,6 +110,17 @@ class Index extends Component {
 
         Taro.$http.post(url, parms).then(res => {
             if (res.code === 200) {
+                setOrder([]);
+                if (this.orderType == 1) {
+                    let arr = [];
+                    shopCar.shopCarArr.forEach(e => {
+                        let index = shopArr.findIndex(son => son.specId == e.specId);
+                        if (index < 0) {
+                            arr.push(e);
+                        }
+                    })
+                    addCar(arr);
+                }
                 this.wxPay(res.data);
             }
         }).catch(err => {
@@ -133,10 +162,10 @@ class Index extends Component {
         return (
             <View className='confirm'>
                 <View className="addr_info">
-                    {
-                        addrInfo ? (
-                            <View onClick={this.goAddr} className="addr_outer flex_middle">
-                                <Image scaleToFill className="addr_icon" src={userIcon.addr}></Image>
+                    <View onClick={this.goAddr} className="addr_outer flex_middle">
+                        <Image scaleToFill className="addr_icon" src={addrIcon}></Image>
+                        {
+                            addrInfo ? (
                                 <View className="flex_1">
                                     <View className="receiver_info">
                                         {addrInfo.receiver + " " + addrInfo.mobile}</View>
@@ -144,12 +173,16 @@ class Index extends Component {
                                         <View>{addrInfo.province + addrInfo.city + addrInfo.district + addrInfo.detail}</View>
                                     </View>
                                 </View>
-                                <View className="iconfont iconarrow-down"></View>
-                            </View>
-                        ) : (
-                                <View>选择地址</View>
-                            )
-                    }
+                            ) : (
+                                    <View className="flex_1">
+                                        <View className="receiver_info">请选择收获地址</View>
+                                    </View>
+                                )
+                        }
+
+                        <View className="iconfont iconarrow-down"></View>
+                    </View>
+
                     <Image style="width: 100%" src={flowerLine} mode="widthFix"></Image>
                 </View>
                 <View className="shop_info">

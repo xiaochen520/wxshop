@@ -36,6 +36,8 @@ export default class Index extends Component {
   }
 
   componentDidShow() {
+    
+
     this.initData();
   }
 
@@ -43,6 +45,14 @@ export default class Index extends Component {
   initData() {
     let shopArr = this.props.shopCar.shopCarArr;
     shopArr.forEach(e => e.select = false);
+
+    // 更新购物车数量
+    if(shopArr.length) {
+      wx.setTabBarBadge({
+        index: 2,
+        text: shopArr.length + ""
+      });
+    }
     
     this.props.setOrder([]);
     this.props.addCar(shopArr);
@@ -167,15 +177,15 @@ export default class Index extends Component {
         <View>
           <View className="top_menu flex_middle">
             <View className="flex_1 top_menu_label">商品数量有限，请尽快结算哦</View>
-            <View onClick={this.changeEdit} className="top_menu_btn">
+            <View onClick={this.changeEdit} className="top_menu_btn b">
               {editMode ? "完成" : "编辑"}
             </View>
           </View>
           <View className='s_list'>
             {
               shopCar.shopCarArr.map((e, i) => (
-                <View className='s_item flex flex_v_c'>
-                  <View onClick={this.chooseGood.bind(this, i)} className={classNames("iconfont", e.select ? "iconpass_Flat_icons" : "iconpass_Line_icons")}></View>
+                <View  className='s_item flex flex_v_c'>
+                  <View className={classNames("iconfont", e.select ? "iconpass_Flat_icons" : "iconpass_Line_icons")}></View>
                   <View className='flex flex_1'>
                     <Image className='s_photo' mode='aspectFit' src={e.itemImgUrl} />
                     <View className='flex_1'>

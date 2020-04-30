@@ -40,6 +40,7 @@ class Index extends Component {
   goPage(page) {
     if (!this.props.user.token) {
       Taro.$util.gotoPage("/pages/wx-author/index");
+      return;
     }
     Taro.$util.gotoPage(page);
   }

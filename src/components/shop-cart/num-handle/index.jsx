@@ -40,10 +40,10 @@ export default class Index extends Component {
     });
   }
 
-  addNum = () => {
+  addNum = e => {
     let { num } = this.state;
-
-    this.setState({num: num + 1}, () => {
+    e.stopPropagation();
+    this.setState({num: parseInt(num) + 1}, () => {
       if(this.props.onChange) {
         this.props.onChange(this.state.num);
       }
@@ -51,11 +51,12 @@ export default class Index extends Component {
     
   }
 
-  minusNum = () => {
+  minusNum = e => {
+    e.stopPropagation();
     let { num } = this.state;
 
     if(num > 0) {
-      this.setState({num: num - 1}, () => {
+      this.setState({num: parseInt(num) - 1}, () => {
         if(this.props.onChange) {
           this.props.onChange(this.state.num);
         }
@@ -75,7 +76,7 @@ export default class Index extends Component {
     return (
       <View style={borderStyle} className='num_handle flex flex_v_c'>
         <View onClick={this.minusNum} style={{color: theme}} className='iconfont iconremove'></View>
-        <Input value={num} onChange={this.inputChange} className='num'>0</Input>
+        <Input onClick={e => {e.stopPropagation()}} value={num} onChange={this.inputChange} className='num'></Input>
         <View onClick={this.addNum} style={{color: theme}} className='iconfont iconadd'></View>
       </View>
     )

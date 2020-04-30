@@ -41,6 +41,7 @@ export default class Index extends Component {
       catId: catId,
       catType: 0,	//分类类型:0代表根分类,1代表其他分类	query	true	
       page: this.page,
+      sort: "c",
       pageSize: this.pageSize
     }
 

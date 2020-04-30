@@ -5,6 +5,7 @@ import api from "@/api";
 import { connect } from '@tarojs/redux'
 
 import AddrItem from "@/components/address/addr-item"
+import NoData from '@/components/common/no-data';
 
 @connect(({ user }) => ({
   user
@@ -101,6 +102,9 @@ export default class Index extends Component {
                 <AddrItem onAddrTap={this.selectCurrentAddr.bind(this, e)} onDelete={this.deleteAddr.bind(this, e, i)} onSetDefault={this.setDefaule.bind(this, e, i)} data={e}></AddrItem>
               </View>
             ))
+          }
+          {
+            !addrArr.length && <NoData></NoData>
           }
         </View>
 

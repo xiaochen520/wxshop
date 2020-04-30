@@ -4,6 +4,7 @@
     padding: 0 30px;
 }
 .good_detail {
+    padding-bottom: 110px;
     background: #F1F1F1;
     .iconarrow-down {
         font-size: 46px;
@@ -109,7 +110,6 @@
         }
     }
     .good_info {
-        padding-bottom: 90px;
         @extend .white_block;
         overflow: hidden;
         .gi_head {
@@ -134,22 +134,22 @@
         left: 0;
         right: 0;
         background: #fff;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
         .aside_m {
             text-align: center;
             color: $c6;
             .iconfont {
-                margin-bottom: 6px;
                 font-size: 36px;
             }
         }
         .car_btn {
-            width: 70%;
+            width: 65%;
             color: #fff;
             background: $theme_color;
             font-size: 26px;
             &_item {
-                height: 90px;
-                line-height: 90px;
+                height: 100px;
+                line-height: 100px;
                 text-align: center;
             }
             &_car {
