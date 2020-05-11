@@ -33,5 +33,6 @@ export default {
     wxPay: "/payment/getMiniProgramWXPay", //获取微信支付参数
     orderInfo: "/orders/orderInfo", //订单详情
     quickCreate: "/orders/quickCreate", //直接下单
+    closeOrder: "/langyiquan/orders/closeOrder", //取消订单
 
 }

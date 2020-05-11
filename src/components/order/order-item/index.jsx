@@ -1,19 +1,37 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text, Button } from '@tarojs/components'
 import { orderStatus } from "@/util/constant"
+import api from "@/api";
 import './index.scss'
 import "../../../style/common.scss";
 
 export default class Index extends Component {
 
+  state = {
+    cancelLoad: false
+  }
 
   goDeatil = () => {
     Taro.$util.gotoPage("/pages/order-detail/index?id=" + this.props.data.orderId);
   }
 
+  cancelOrder = () => {
+    this.setState({cancelLoad: true});
+    Taro.$http.get(api.closeOrder, {orderId: this.props.data.orderId}).then(res => {
+      if(res.code === 200) {
+        Taro.showToast({
+          title: "操作成功！",
+          icon: "none"
+        });
+        this.props.onCancel();
+      }
+      this.setState({cancelLoad: false});
+    });
+  }
+
   render() {
     let { data } = this.props;
-    if(!data) return null;
+    if (!data) return null;
     return (
       <View onClick={this.goDeatil} className='order_item'>
         <View className="o_head flex_middle">
@@ -49,17 +67,19 @@ export default class Index extends Component {
                     }
                   })
                 }
-                {/* <View>
-                  <View className="iconfont iconellipsis"></View>
-                </View> */}
               </View>
             )
         }
+        <View className="price_total">共计{data.subOrderItemList.length}种商品，{data.orderStatus == 10 ? "待支付" : "实际支付"}￥{data.realPayAmount}</View>
         <View className="o_foot flex_middle">
-          <View className="flex_1 tr">共计{data.subOrderItemList.length}种商品，{data.orderStatus == 10 ? "待支付" : "实际支付"}</View>
-          <View className="of_pay">￥{data.realPayAmount}</View>
+          {
+            (data.orderStatus == 10 || data.orderStatus == 20 || data.orderStatus == 30) && <Button loading={cancelLoad} onClick={this.cancelOrder} className="of_btn">取消订单</Button>
+          }
           {
             data.orderStatus == 10 && <Button className="of_btn">去付款</Button>
+          }
+          {
+            data.orderStatus == 40 && <Button className="of_btn">删除订单</Button>
           }
         </View>
       </View>

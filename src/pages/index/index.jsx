@@ -14,7 +14,7 @@ import LoadTip from "@/components/common/load-tip"
 export default class Index extends Component {
 
   config = {
-
+    enablePullDownRefresh: true
   }
 
   state = {
@@ -42,7 +42,16 @@ export default class Index extends Component {
     }
   }
 
-  componentDidHide() { }
+  // 下拉刷新
+  onPullDownRefresh() {
+    this.page = 1;
+    this.getData();
+  }
+
+  // 上拉加载
+  onReachBottom() {
+    this.getRecommends();
+  }
 
   //获取所有数据
   getData() {
@@ -53,6 +62,7 @@ export default class Index extends Component {
       Taro.$http.get(api.recommends, { page: this.page, pageSize: this.pageSize })
     ];
     Taro.$http.all(reqArr).then(([carousel, cate, recommends]) => {
+      wx.stopPullDownRefresh();
       bannerArr = carousel.data;
       hotCateArr = cate.data;
       topicArr = recommends.data.rows;
@@ -95,7 +105,7 @@ export default class Index extends Component {
     let content = showLoading ? (
       < Loading />
     ) : (
-        <ScrollView scroll-anchoring onScrollToLower={this.getRecommends} lowerThreshold="50" scrollY className='index'>
+        <View className='index'>
           <Swiper
             indicatorColor='#666'
             indicatorActiveColor='#333'
@@ -157,7 +167,7 @@ export default class Index extends Component {
               !this.hasMore && <LoadTip></LoadTip>
             }
           </View>
-        </ScrollView>
+        </View>
       )
 
     return content;

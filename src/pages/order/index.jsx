@@ -45,6 +45,10 @@ export default class Index extends Component {
       label: "已完成",
       status: 40
     }
+    // {
+    //   label: "已关闭",
+    //   status: 50
+    // }
   ]
 
   componentDidMount() {
@@ -94,6 +98,15 @@ export default class Index extends Component {
     });
   }
 
+  // 取消订单
+  cancelOrder = () => {
+    this.hasMore = true;
+    this.page = 1;
+    this.setState({orderArr: [], showLoading: true}, () => {
+      this.getOrder();
+    })
+  }
+
   render() {
     let { orderArr, showLoading, currentTab } = this.state;
     
@@ -110,7 +123,7 @@ export default class Index extends Component {
             {
               orderArr.map(e => (
                 <View className="oi_outer">
-                  <OrderItem data={e}></OrderItem>
+                  <OrderItem onCancel={this.cancelOrder} data={e}></OrderItem>
                 </View>
               ))
             }
