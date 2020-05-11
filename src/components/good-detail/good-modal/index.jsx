@@ -2,12 +2,16 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Button, ScrollView } from '@tarojs/components'
 import classNames from 'classnames'
 import api from "@/api"
+import { connect } from '@tarojs/redux'
 import './index.scss'
 import "../../../style/common.scss";
 import "../../../style/mixin.scss";
 
 import NumHandle from "@/components/shop-cart/num-handle";
 
+@connect(({ shopCar, user }) => ({
+  user
+}))
 export default class Index extends Component {
 
   static defaultProps = {
@@ -45,6 +49,12 @@ export default class Index extends Component {
 
   save = () => {
     let { count, currentItem } = this.state;
+
+    if(!this.props.user.token) {
+      Taro.$util.gotoPage("/pages/wx-author/index");
+      return;
+    }
+
     if(!currentItem) {
       Taro.showToast({
         title: '请选择商品',

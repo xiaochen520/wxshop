@@ -3,6 +3,15 @@ page {
 }
 
 .order {
+  .order_menu {
+    background: #fff;
+    margin-bottom: 20px;
+    &_item {
+      color: $c6;
+      height: 80px;
+      padding: 0 30px;
+    }
+  }
   .addr_info {
     background: #fff;
     padding: 30px 30px 10px;
@@ -75,29 +84,13 @@ page {
         color: #DC0000;
       }
     }
-    
-  }
-  .foot_bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #fff;
-    font-size: 30px;
-    .fb_static {
+    .money_calc {
       color: $c3;
-      padding-left: 30px;
-      .s {
-        color: #B62220;
-      }
-    }
-    .save_btn {
-      font-size: 30px;
-      width: 250px;
-      background: $theme_color;
-      color: #fff;
       height: 90px;
-      line-height: 90px;
+      @include line-row(1px, #E9E9E9);
+      .s {
+        color: #DC0000;
+      }
     }
   }
 }

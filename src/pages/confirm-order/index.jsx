@@ -19,68 +19,106 @@ import addrIcon from "@/imgs/order/addr-icon.png"
     },
 }))
 class Index extends Component {
-    state = {
-        addrInfo: null,
-        totalMoney: 0
+  state = {
+    addrInfo: null,
+    totalMoney: 0
+  }
+
+  orderType = 0;
+  // onLoad
+  componentWillMount() {
+
+  }
+  // onShow
+  componentDidShow() {
+    this.orderType = this.$router.params.type;
+    this.getAddr();
+    this.calcMoney();
+  }
+  // onUnload
+  componentWillUnmount() {
+
+  }
+
+  //计算总金额
+  calcMoney() {
+    let shopArr = this.props.shopCar.confirmOrderArr;
+    let money = 0;
+
+    shopArr.forEach(e => {
+      money += e.buyCounts * e.priceDiscount;
+    })
+
+    this.setState({ totalMoney: money });
+  }
+
+  // 去地址列表
+  goAddr() {
+    Taro.$util.gotoPage("/pages/address/index?order=1");
+  }
+
+  //取地址
+  getAddr() {
+    let defaultAddr = Taro.getStorageSync("address");
+    if (defaultAddr) {
+      this.setState({ addrInfo: defaultAddr });
+      return;
     }
 
-    orderType = 0;
-    // onLoad
-    componentWillMount() {
-
-    }
-    // onShow
-    componentDidShow() {
-        this.orderType = this.$router.params.type;
-        this.getAddr();
-        this.calcMoney();
-    }
-    // onUnload
-    componentWillUnmount() {
-
-    }
-
-    //计算总金额
-    calcMoney() {
-        let shopArr = this.props.shopCar.confirmOrderArr;
-        let money = 0;
-
-        shopArr.forEach(e => {
-            money += e.buyCounts * e.priceDiscount;
-        })
-
-        this.setState({ totalMoney: money });
-    }
-
-    // 去地址列表
-    goAddr() {
-        Taro.$util.gotoPage("/pages/address/index?order=1");
-    }
-
-    //取地址
-    getAddr() {
-        let defaultAddr = Taro.getStorageSync("address");
-        if (defaultAddr) {
-            this.setState({ addrInfo: defaultAddr });
-            return;
+    Taro.$http.post(api.addrList).then(res => {
+      if (res.code === 200) {
+        let addr = res.data.find(e => e.isDefault === 1);
+        if (addr) {
+          Taro.setStorage({
+            key: "address",
+            data: addr
+          });
+          this.setState({ addrInfo: addr })
         }
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 
-        Taro.$http.post(api.addrList).then(res => {
-            if (res.code === 200) {
-                let addr = res.data.find(e => e.isDefault === 1);
-                if (addr) {
-                    Taro.setStorage({
-                        key: "address",
-                        data: addr
-                    });
-                    this.setState({ addrInfo: addr })
-                }
-            }
-        }).catch(err => {
-            console.log(err);
-        });
+  //提交订单
+  confirmOrder = () => {
+    let shopArr = this.props.shopCar.confirmOrderArr;
+    let { addrInfo } = this.state;
+    let parms = {
+      addressId: addrInfo.id,
+      itemSpecIds: shopArr.map(e => e.specId).join(),
+      leftMsg: '',
+      payMethod: 1
     }
 
+    if (this.orderType == 0) {
+      parms.buyCounts = shopArr[0] && shopArr[0].buyCounts;
+    }
+
+    let url = this.orderType == 0 ? api.quickCreate : api.createOrder;
+
+    Taro.$http.post(url, parms).then(res => {
+      if (res.code === 200) {
+        this.wxPay(res.data);
+      }
+    }).catch(err => {
+      console.log(err);
+
+    });
+  }
+
+  // 微信支付
+  wxPay(id) {
+    let parms = {
+      orderId: id
+    }
+
+<<<<<<< HEAD
+    Taro.$http.get(api.wxPay, parms).then(res => {
+      if (res.code === 200) {
+        let { timeStamp, nonceStr, signType, packageStr, sign } = res.data;
+=======
     //提交订单
     confirmOrder = () => {
         let shopArr = this.props.shopCar.confirmOrderArr;
@@ -127,12 +165,44 @@ class Index extends Component {
             console.log(err);
         });
     }
+>>>>>>> cb06336013f360a39f5179bb443948161b10024e
 
-    // 微信支付
-    wxPay(id) {
         let parms = {
-            orderId: id
+          timeStamp, nonceStr, signType,
+          package: packageStr,
+          paySign: sign,
+          success: res => {
+            Taro.$util.gotoPage(`/pages/order-detail/index?id=${id}`);
+          },
+          fail: err => {
+            Taro.$util.gotoPage(`/pages/order-detail/index?id=${id}`);
+          }
         }
+<<<<<<< HEAD
+        console.log(parms)
+
+        wx.requestPayment(parms);
+      }
+    });
+  }
+
+  render() {
+    let { addrInfo, totalMoney } = this.state;
+    let { shopCar } = this.props;
+    return (
+      <View className='confirm'>
+        <View className="addr_info">
+          {
+            addrInfo ? (
+              <View onClick={this.goAddr} className="addr_outer flex_middle">
+                <Image scaleToFill className="addr_icon" src={userIcon.addr}></Image>
+                <View className="flex_1">
+                  <View className="receiver_info">
+                    {addrInfo.receiver + " " + addrInfo.mobile}</View>
+                  <View className="addr_detail">
+                    <View>{addrInfo.province + addrInfo.city + addrInfo.district + addrInfo.detail}</View>
+                  </View>
+=======
 
         Taro.$http.get(api.wxPay, parms).then(res => {
             if (res.code === 200) {
@@ -184,47 +254,56 @@ class Index extends Component {
                     </View>
 
                     <Image style="width: 100%" src={flowerLine} mode="widthFix"></Image>
+>>>>>>> cb06336013f360a39f5179bb443948161b10024e
                 </View>
-                <View className="shop_info">
-                    {
-                        shopCar.confirmOrderArr.map(e => (
-                            <View className="s_item flex_middle">
-                                <Image className="s_img" aspectFill src={e.itemImgUrl}></Image>
-                                <View className="flex_1">
-                                    <View className="si_name b">
-                                        {e.itemName}
-                                    </View>
-                                    <View className="si_rule">{e.specName}</View>
-                                    <View className="flex_middle">
-                                        <View className="si_price flex_1">
-                                            <Text>￥</Text>
-                                            <Text className="s b">{e.priceDiscount}</Text>
-                                        </View>
-                                        <View className="si_count">X{e.buyCounts}</View>
-                                    </View>
-                                </View>
-                            </View>
-                        ))
-                    }
-                </View>
-
-                <View className="money">
-                    <View className="money_item flex_middle">
-                        <View className="flex_1 m_label">商品金额</View>
-                        <View className="m_total">￥{totalMoney}</View>
+                <View className="iconfont iconarrow-down"></View>
+              </View>
+            ) : (
+                <View>选择地址</View>
+              )
+          }
+          <Image style="width: 100%" src={flowerLine} mode="widthFix"></Image>
+        </View>
+        <View className="shop_info">
+          {
+            shopCar.confirmOrderArr.map(e => (
+              <View className="s_item flex_middle">
+                <Image className="s_img" aspectFill src={e.itemImgUrl}></Image>
+                <View className="flex_1">
+                  <View className="si_name b">
+                    {e.itemName}
+                  </View>
+                  <View className="si_rule">{e.specName}</View>
+                  <View className="flex_middle">
+                    <View className="si_price flex_1">
+                      <Text>￥</Text>
+                      <Text className="s b">{e.priceDiscount}</Text>
                     </View>
+                    <View className="si_count">X{e.buyCounts}</View>
+                  </View>
                 </View>
+              </View>
+            ))
+          }
+        </View>
 
-                <View className="foot_bar flex_middle">
-                    <View className="flex_1 fb_static">
-                        <Text>合计：</Text>
-                        <Text className="s b">{totalMoney}元</Text>
-                    </View>
-                    <Button onClick={this.confirmOrder} className="save_btn">提交订单</Button>
-                </View>
-            </View>
-        )
-    }
+        <View className="money">
+          <View className="money_item flex_middle">
+            <View className="flex_1 m_label">商品金额</View>
+            <View className="m_total">￥{totalMoney}</View>
+          </View>
+        </View>
+
+        <View className="foot_bar flex_middle">
+          <View className="flex_1 fb_static">
+            <Text>合计：</Text>
+            <Text className="s b">{totalMoney}元</Text>
+          </View>
+          <Button onClick={this.confirmOrder} className="save_btn">提交订单</Button>
+        </View>
+      </View>
+    )
+  }
 }
 
 export default Index
